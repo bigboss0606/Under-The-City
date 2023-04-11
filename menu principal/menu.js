@@ -59,13 +59,6 @@ class Menu
     }
 
 
-    launchMusic()
-    {
-        let sound = new BABYLON.Sound("music", "whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
-    }
-
-
-
     getScene()
     {
         return this.scene;

@@ -12,6 +12,8 @@ class Game
     {
         this.scene = new BABYLON.Scene(engine);
 
+        let sound = new BABYLON.Sound("music", "whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
+
         const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-4, 2, 0), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
         camera.attachControl(canvas, true);
@@ -30,14 +32,14 @@ class Game
 
         this.scene.enablePhysics(new BABYLON.Vector3(0,-10,0), new BABYLON.AmmoJSPlugin());
 
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
 
         let UI = new myUI()
         UI.initiate();
 
 
         let vitre;
-        BABYLON.SceneLoader.ImportMeshAsync("", "", "resto2.babylon", this.scene).then(() => {
+        BABYLON.SceneLoader.ImportMeshAsync("", "Burger War/", "resto.babylon", this.scene).then(() => {
             vitre = this.scene.getMeshByName("Vitre");
             console.log(vitre);
             var glass = new BABYLON.PBRMaterial("glass", this.scene);
@@ -64,7 +66,7 @@ class Game
         let tomate;
         let clones = [];
 
-        BABYLON.SceneLoader.ImportMeshAsync("", "", "burger2.babylon", this.scene).then((newMeshes) => {
+        BABYLON.SceneLoader.ImportMeshAsync("", "Burger War/", "burger.babylon", this.scene).then((newMeshes) => {
             //assiette = this.scene.getMeshByName("Assiette");
             fromage = this.scene.getMeshByName("Fromage");
             painDessous = this.scene.getMeshByName("PainDessous");

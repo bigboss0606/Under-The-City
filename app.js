@@ -10,7 +10,6 @@ function createMenu()
     menu.button.onPointerClickObservable.add(() => {
         sceneToRender = "game";
         menu.motherfucker();
-        menu.launchMusic();
     });
 
     return menu.getScene();
