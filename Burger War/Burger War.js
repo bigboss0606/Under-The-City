@@ -1,4 +1,4 @@
-class Game
+class BurgerWar
 {
     scene;
 
@@ -12,7 +12,7 @@ class Game
     {
         this.scene = new BABYLON.Scene(engine);
 
-        let sound = new BABYLON.Sound("music", "whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
+        let sound = new BABYLON.Sound("music", "Burger War/whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
 
         const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-4, 2, 0), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
@@ -32,7 +32,7 @@ class Game
 
         this.scene.enablePhysics(new BABYLON.Vector3(0,-10,0), new BABYLON.AmmoJSPlugin());
 
-        //this.scene.debugLayer.show();
+        this.scene.debugLayer.show();
 
         let UI = new myUI()
         UI.initiate();
@@ -41,7 +41,6 @@ class Game
         let vitre;
         BABYLON.SceneLoader.ImportMeshAsync("", "Burger War/", "resto.babylon", this.scene).then(() => {
             vitre = this.scene.getMeshByName("Vitre");
-            console.log(vitre);
             var glass = new BABYLON.PBRMaterial("glass", this.scene);
             glass.indexOfRefraction = 0.52;
             glass.alpha = 0.5;
