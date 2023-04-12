@@ -98,7 +98,7 @@ class Menu
     }
 
 
-    motherfucker()
+    cacher()
     {
         this.advancedTexture.dispose();
     }

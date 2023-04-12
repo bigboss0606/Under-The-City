@@ -11,12 +11,31 @@ class BurgerWar
     async initiate()
     {
         this.scene = new BABYLON.Scene(engine);
+        this.scene.collisionsEnabled = true;
 
-        let sound = new BABYLON.Sound("music", "Burger War/whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
 
-        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-4, 2, 0), this.scene);
+        /*const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-4, 2, 0), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
+        camera.attachControl(canvas, true);*/
+
+        
+        const camera=new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0,1,0), this.scene);
         camera.attachControl(canvas, true);
+
+        camera.applyGravity = true;
+        camera.checkCollisions = true;
+        camera.ellipsoid = new BABYLON.Vector3(0.3,0.9,0.3);
+        camera.minZ = 0.45;
+        camera.speed = 0.5;
+        camera.angularSensibility = 4000;
+
+        //personalize the keys for the controller movement
+        camera.keysUp.push(87);
+        camera.keysUp.push(90);
+        camera.keysRight.push(68);
+        camera.keysDown.push(83);
+        camera.keysLeft.push(81);
+
 
         const light1 = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
         //light1.position = new BABYLON.Vector3(0, 15, -30);
@@ -32,14 +51,14 @@ class BurgerWar
 
         this.scene.enablePhysics(new BABYLON.Vector3(0,-10,0), new BABYLON.AmmoJSPlugin());
 
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
 
         let UI = new myUI()
         UI.initiate();
 
 
         let vitre;
-        BABYLON.SceneLoader.ImportMeshAsync("", "Burger War/", "resto.babylon", this.scene).then(() => {
+        BABYLON.SceneLoader.ImportMeshAsync("", "Burger War/", "resto.babylon", this.scene).then((result) => {
             vitre = this.scene.getMeshByName("Vitre");
             var glass = new BABYLON.PBRMaterial("glass", this.scene);
             glass.indexOfRefraction = 0.52;
@@ -52,6 +71,11 @@ class BurgerWar
             glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
             glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
             vitre.material = glass;
+
+            for (let mesh of result.meshes)
+            {
+                mesh.checkCollisions = true;
+            }
         });
 
 
@@ -87,10 +111,12 @@ class BurgerWar
 
 
         // Create ground collider
-        var ground = BABYLON.MeshBuilder.CreateGround("ground1", {width:2, height:2, subdivisions:10});
+        var ground = BABYLON.MeshBuilder.CreateGround("ground1", {width:10, height:10, subdivisions:10});
         ground.position = new BABYLON.Vector3(-3, 0, 3)
         ground.physicsImpostor = new BABYLON.PhysicsImpostor(ground, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, friction: 0.5, restitution: 0.7 }, this.scene);
         ground.isVisible = false;
+        ground.checkCollisions = true;
+
 
 
         function createObject(obj, scene)
@@ -131,35 +157,7 @@ class BurgerWar
                 clones = [];
             }
         );
-
-
-        // Keyboard events
-        var inputMap = {};
-        this.scene.actionManager = new BABYLON.ActionManager(this.scene);
-        this.scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
-            inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
-        }));
-        this.scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
-            inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
-        }));
-
-        this.scene.onBeforeRenderObservable.add(() => {
-            if (inputMap["z"]) {
-                camera.position.x += 0.5;
-            }
-            if (inputMap["s"]) {
-                camera.position.x -= 0.5;
-            }
-            if (inputMap["q"]) {
-                camera.position.z += 0.5;
-
-            }
-            if (inputMap["d"]) {
-                camera.position.z -= 0.5;
-            }
-        });
     }
-
 
 
     getScene()

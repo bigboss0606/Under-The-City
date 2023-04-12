@@ -1,6 +1,7 @@
 var canvas = document.getElementById("renderCanvas");
 var engine = null;
 var sceneToRender = "menu";
+var previousSceneToRender = null;
 
 
 function createMenu()
@@ -10,22 +11,22 @@ function createMenu()
 
     menu.buttonOpertura.onPointerClickObservable.add(() => {
         sceneToRender = "Opertura";
-        menu.motherfucker();
+        menu.cacher();
     });
 
     menu.buttonBurgerWar.onPointerClickObservable.add(() => {
         sceneToRender = "BurgerWar";
-        menu.motherfucker();
+        menu.cacher();
     });
 
     menu.button3.onPointerClickObservable.add(() => {
         sceneToRender = "3";
-        menu.motherfucker();
+        menu.cacher();
     });
 
     menu.button4.onPointerClickObservable.add(() => {
         sceneToRender = "4";
-        menu.motherfucker();
+        menu.cacher();
     });
 
     return menu.getScene();
@@ -36,14 +37,14 @@ function createOpertura()
 {
     let game = new Opertura();
     game.initiate();
-    return game.getScene();
+    return game;
 }
 
 function createBurgerWar() 
 {
     let game = new BurgerWar();
     game.initiate();
-    return game.getScene();
+    return game;
 }
 
 
@@ -58,6 +59,8 @@ var initFunction = async function()
     let opertura = createOpertura();
     let burgerWar = createBurgerWar();
 
+    let musique = new Musique(menu);
+
 
     engine.runRenderLoop(function () {
         if (sceneToRender === "menu")
@@ -66,11 +69,21 @@ var initFunction = async function()
         }
         else if (sceneToRender === "Opertura")
         {
-            opertura.render();
+            if (previousSceneToRender !== "Opertura")
+            {
+                musique.lanceLaMusique("coniferous-forest.mp3", opertura.getScene());
+                previousSceneToRender = "Opertura";
+            }
+            opertura.getScene().render();
         }
         else if (sceneToRender === "BurgerWar")
         {
-            burgerWar.render();
+            if (previousSceneToRender !== "BurgerWar")
+            {
+                musique.lanceLaMusique("whopper-whopper.mp3", burgerWar.getScene());
+                previousSceneToRender = "BurgerWar";
+            }
+            burgerWar.getScene().render();
         }
         else if (sceneToRender === "3")
         {
