@@ -12,7 +12,7 @@ class Opertura
     {
         this.scene = new BABYLON.Scene(engine);
 
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
 
         const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 8, 18), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
