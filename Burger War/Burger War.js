@@ -51,8 +51,6 @@ class BurgerWar
 
         this.scene.enablePhysics(new BABYLON.Vector3(0,-10,0), new BABYLON.AmmoJSPlugin());
 
-        //this.scene.debugLayer.show();
-
         let UI = new myUI()
         UI.initiate();
 
