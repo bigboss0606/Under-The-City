@@ -12,9 +12,9 @@ class Opertura
     {
         this.scene = new BABYLON.Scene(engine);
 
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
 
-        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 8, 18), this.scene);
+        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, 18), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
         camera.attachControl(canvas, true);
         camera.speed = 0.5;
@@ -37,15 +37,41 @@ class Opertura
         let zoneFin;
         BABYLON.SceneLoader.ImportMeshAsync("", "Opertura/", "estrade.glb", this.scene).then(() => {
             zoneValide = this.scene.getMeshByName("ZoneValide");
-            zoneValide.isVisible = false;
+            var glass = new BABYLON.PBRMaterial("glass", this.scene);
+            glass.indexOfRefraction = 0.52;
+            glass.alpha = 0.5;
+            glass.directIntensity = 0.0;
+            glass.environmentIntensity = 0.7;
+            glass.cameraExposure = 0.66;
+            glass.cameraContrast = 1.66;
+            glass.microSurface = 1;
+            glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+            glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
+            zoneValide.material = glass;
+
             zoneFin = this.scene.getMeshByName("ZoneFin");
             zoneFin.isVisible = false;
+
             isReady = true;
         });
 
+        let matRouge = new BABYLON.StandardMaterial("matRouge");
+        matRouge.diffuseColor = BABYLON.Color3.Red();
+        let matVert = new BABYLON.StandardMaterial("matVert");
+        matVert.diffuseColor = BABYLON.Color3.Green();
+        let matBlue = new BABYLON.StandardMaterial("matBlue");
+        matBlue.diffuseColor = BABYLON.Color3.Blue();
+        let matYellow = new BABYLON.StandardMaterial("matYellow");
+        matYellow.diffuseColor = BABYLON.Color3.Yellow();
+        let matTeal = new BABYLON.StandardMaterial("matTeal");
+        matTeal.diffuseColor = BABYLON.Color3.Teal();
+        let mats = [matRouge, matBlue, matVert, matYellow, matTeal];
 
-        let notes = [[0, 0], [60, 1], [120, 2], [180, 3], [240, 4], [360, 0],  [360, 1], [360, 2], [360, 3], [360, 4]];
+
+        let notes = [[0, 0], [60, 1], [120, 2], [180, 3], [240, 4], [300, 4],  [360, 3], [420, 2], [480, 1], [540, 0]];
+        let duree = 600;
         let i = 0;
+        
 
         let notesCrees = [];
         let aAppuye = false;
@@ -56,12 +82,13 @@ class Opertura
             {            
                 for (let couple of notes)
                 {
-                    if(couple[0] === i)
+                    if(couple[0] === i % duree)
                     {
-                        notesCrees.push(new Note(couple[1], this.scene));
+                        notesCrees.push(new Note(couple[1], mats[couple[1]], this.scene));
                     }
                 }
-            }
+            }                
+            i++;
         });
 
         this.scene.onBeforeRenderObservable.add(() => {
@@ -85,7 +112,6 @@ class Opertura
 
                     note.avancer();
                 }
-                i++;
             }
         });
 

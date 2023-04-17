@@ -5,18 +5,21 @@ class Note
     positionY;
     positionZ;
 
-    constructor(ligne, scene)
+    constructor(ligne, mat, scene)
     {        
-        this.lignes = [-1.2, -0.6, 0, 0.6, 1.2];
+        this.lignes = [0.84, 0.42, 0, -0.42, -0.84];
+        this.couleurs = [(1, 0, 0), (1, 1, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)];
 
         this.ligne = ligne;
         this.positionX = this.lignes[this.ligne];
-        this.positionY = 2;
+        this.positionY = 1.8;
         this.positionZ = -1;
 
         this.mesh = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:0.3}, scene);
         this.mesh.position = new BABYLON.Vector3(this.positionX, this.positionY, this.positionZ);
-        this.mesh.scaling = new BABYLON.Vector3(1, 1, 2);
+        this.mesh.scaling = new BABYLON.Vector3(1, 0.5, 2);
+        
+        this.mesh.material = mat;
     }
 
     avancer()
