@@ -24,7 +24,8 @@ class Note
 
     avancer()
     {
-        this.positionZ += 0.1;
+        
+        this.positionZ += 0.1;//6 * Math.round(engine.getDeltaTime()) / 1000;
         this.mesh.position = new BABYLON.Vector3(this.positionX, this.positionY, this.positionZ);
     }
 

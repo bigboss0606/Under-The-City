@@ -28,7 +28,7 @@ class Opertura
         const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
     
         const UI = new OperturaUI();
-        UI.initiate();
+
 
         let isReady = false;
 
@@ -76,6 +76,10 @@ class Opertura
         let notesCrees = [];
         let aAppuye = false;
 
+        this.scene.onBeforeRenderObservable.add(() => {
+            UI.setTextFPS(Math.round(engine.getFps()));
+            
+        });
        
         this.scene.onBeforeRenderObservable.add(() => {
             if (isReady)
@@ -107,7 +111,7 @@ class Opertura
                         const index = notesCrees.indexOf(note);
                         notesCrees.splice(index, 1);
 
-                        UI.text.text = "Raté";
+                        UI.setTextScore("Raté");
                     }
 
                     note.avancer();
@@ -139,7 +143,7 @@ class Opertura
                                             const index = notesCrees.indexOf(note);
                                             notesCrees.splice(index, 1);
 
-                                            UI.text.text = "Bien joué";
+                                            UI.setTextScore("Bien joué");
                                             aucuneNoteTouche = false;
                                         }
                                     }
@@ -155,7 +159,7 @@ class Opertura
                                             const index = notesCrees.indexOf(note);
                                             notesCrees.splice(index, 1);
 
-                                            UI.text.text = "Bien joué";
+                                            UI.setTextScore("Bien joué");
                                             aucuneNoteTouche = false;
                                         }
                                     }
@@ -171,7 +175,7 @@ class Opertura
                                             const index = notesCrees.indexOf(note);
                                             notesCrees.splice(index, 1);
 
-                                            UI.text.text = "Bien joué";
+                                            UI.setTextScore("Bien joué");
                                             aucuneNoteTouche = false;
                                         }
                                     }
@@ -187,7 +191,7 @@ class Opertura
                                             const index = notesCrees.indexOf(note);
                                             notesCrees.splice(index, 1);
 
-                                            UI.text.text = "Bien joué";
+                                            UI.setTextScore("Bien joué");
                                             aucuneNoteTouche = false;
                                         }
                                     }
@@ -203,18 +207,16 @@ class Opertura
                                             const index = notesCrees.indexOf(note);
                                             notesCrees.splice(index, 1);
 
-                                            UI.text.text = "Bien joué";
+                                            UI.setTextScore("Bien joué");
                                             aucuneNoteTouche = false;
                                         }
                                     }
                                     break;
                             }
 
-                            
-
                             if (aucuneNoteTouche)
                             {
-                                UI.text.text = "Aie";
+                                UI.setTextScore("Aie");
                             }
                         }
                         break;
@@ -222,32 +224,6 @@ class Opertura
                     case BABYLON.KeyboardEventTypes.KEYUP:
                         aAppuye = false;
                         break;
-
-
-                        /*
-                        switch (kbInfo.event.key) {
-                            case "x":
-                            case "X":
-                                sphere.position.x -= 0.1;
-                            break
-                            case "c":
-                            case "C":
-                                sphere.position.x += 0.1;
-                            break
-                            case "v":
-                            case "V":
-                                sphere.position.y += 0.1;
-                            break
-                            case "b":
-                            case "B":
-                                sphere.position.y -= 0.1;
-                            break
-                            case "n":
-                            case "N":
-                                sphere.position.y -= 0.1;
-                            break
-                        }*/
-                    break;
                 }
             }
         });

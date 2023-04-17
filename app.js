@@ -40,12 +40,12 @@ function createOpertura()
     return game;
 }
 
-function createBurgerWar() 
+/*function createBurgerWar() 
 {
     let game = new BurgerWar();
     game.initiate();
     return game;
-}
+}*/
 
 
 
@@ -57,7 +57,7 @@ var initFunction = async function()
 
     let menu = createMenu();
     let opertura = createOpertura();
-    let burgerWar = createBurgerWar();
+    //let burgerWar = createBurgerWar();
 
     let musique = new Musique(menu);
 
@@ -76,15 +76,15 @@ var initFunction = async function()
             }
             opertura.getScene().render();
         }
-        else if (sceneToRender === "BurgerWar")
+        /*else if (sceneToRender === "BurgerWar")
         {
             if (previousSceneToRender !== "BurgerWar")
             {
                 musique.lanceLaMusique("whopper-whopper.mp3", burgerWar.getScene());
-                previousSceneToRender = "BurgerWar";
+                //previousSceneToRender = "BurgerWar";
             }
             burgerWar.getScene().render();
-        }
+        }*/
         else if (sceneToRender === "3")
         {
             console.log(3);
