@@ -1,4 +1,4 @@
-class Opertura
+class Combat
 {
     scene;
 
@@ -10,14 +10,14 @@ class Opertura
 
     async initiate()
     {
-        this.scene = new BABYLON.Scene(engine);
+        this.scene = new BABYLON.Scene(ENGINE);
 
         //this.scene.debugLayer.show();
 
 
         const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, 18), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
-        camera.attachControl(canvas, true);
+        camera.attachControl(CANVAS, true);
         camera.speed = 0.5;
         camera.angularSensibility = 4000;
         camera.keysUp.push(87);
@@ -28,7 +28,7 @@ class Opertura
 
         const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
     
-        const UI = new OperturaUI();
+        const UI = new CombatUI();
 
 
         let isReady = false;
@@ -36,7 +36,7 @@ class Opertura
 
         let zoneValide;
         let zoneFin;
-        BABYLON.SceneLoader.ImportMeshAsync("", "Opertura/", "estrade.glb", this.scene).then(() => {
+        BABYLON.SceneLoader.ImportMeshAsync("", "combat/", "estrade.glb", this.scene).then(() => {
             zoneValide = this.scene.getMeshByName("ZoneValide");
             var glass = new BABYLON.PBRMaterial("glass", this.scene);
             glass.indexOfRefraction = 0.52;
@@ -56,6 +56,7 @@ class Opertura
             isReady = true;
         });
 
+        
         let matRouge = new BABYLON.StandardMaterial("matRouge");
         matRouge.diffuseColor = BABYLON.Color3.Red();
         let matVert = new BABYLON.StandardMaterial("matVert");
@@ -78,7 +79,7 @@ class Opertura
         let aAppuye = false;
 
         this.scene.onBeforeRenderObservable.add(() => {
-            UI.setTextFPS(Math.round(engine.getFps()));
+            UI.setTextFPS(Math.round(ENGINE.getFps()));
             
         });
        

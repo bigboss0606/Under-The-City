@@ -1,55 +1,28 @@
-var canvas = document.getElementById("renderCanvas");
-var engine = null;
-var sceneToRender = "menu";
-var previousSceneToRender = null;
+var CANVAS = document.getElementById("renderCanvas");
+var ENGINE = null;
+var SCENETORENDER = "menu";
+var PREVIOUSSCENETORENDER = null;
+
 
 
 function createMenu()
 {
     let menu = new Menu();
     menu.initiate();
-
-    menu.buttonOpertura.onPointerClickObservable.add(() => {
-        sceneToRender = "Opertura";
-        menu.cacher();
-    });
-
-    menu.buttonBurgerWar.onPointerClickObservable.add(() => {
-        sceneToRender = "BurgerWar";
-        menu.cacher();
-    });
-
-    menu.button3.onPointerClickObservable.add(() => {
-        sceneToRender = "Nebula";
-        menu.cacher();
-    });
-
-    menu.button4.onPointerClickObservable.add(() => {
-        sceneToRender = "4";
-        menu.cacher();
-    });
-
     return menu.getScene();
 }
 
 
-function createOpertura() 
+function createCombat() 
 {
-    let game = new Opertura();
+    let game = new Combat();
     game.initiate();
     return game;
 }
 
-function createBurgerWar() 
+function createResto() 
 {
-    let game = new BurgerWar();
-    game.initiate();
-    return game;
-}
-
-function createNebula() 
-{
-    let game = new Nebula();
+    let game = new Resto();
     game.initiate();
     return game;
 }
@@ -58,56 +31,47 @@ function createNebula()
 
 var initFunction = async function() 
 {
-    await Ammo();
-    engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
-
+    ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
 
     let menu = createMenu();
-    let opertura = createOpertura();
-    let burgerWar = createBurgerWar();
-    let nebula = createNebula();
+    let resto = createResto();
+    let combat = createCombat();
 
     let musique = new Musique(menu);
 
 
-    engine.runRenderLoop(function () {
-        if (sceneToRender === "menu")
+    ENGINE.runRenderLoop(function () {
+        console.log(SCENETORENDER);
+        if (SCENETORENDER === "menu")
         {
+            if (PREVIOUSSCENETORENDER !== "menu")
+            {
+                musique.lanceLaMusique("relaxing.mp3", menu);
+                PREVIOUSSCENETORENDER = "menu";
+            }
             menu.render();
         }
-        else if (sceneToRender === "Opertura")
+        else if (SCENETORENDER === "resto")
         {
-            if (previousSceneToRender !== "Opertura")
+            if (PREVIOUSSCENETORENDER !== "resto")
             {
-                musique.lanceLaMusique("coniferous-forest.mp3", opertura.getScene());
-                previousSceneToRender = "Opertura";
+                musique.lanceLaMusique("whopper-whopper.mp3", resto.getScene());
+                PREVIOUSSCENETORENDER = "resto";
             }
-            opertura.getScene().render();
+            resto.getScene().render();
         }
-        else if (sceneToRender === "BurgerWar")
+        else if (SCENETORENDER === "combat")
         {
-            if (previousSceneToRender !== "BurgerWar")
+            if (PREVIOUSSCENETORENDER !== "combat")
             {
-                musique.lanceLaMusique("whopper-whopper.mp3", burgerWar.getScene());
-                previousSceneToRender = "BurgerWar";
+                musique.lanceLaMusique("coniferous-forest.mp3", combat.getScene());
+                PREVIOUSSCENETORENDER = "combat";
             }
-            burgerWar.getScene().render();
+            combat.getScene().render();
         }
-        else if (sceneToRender === "Nebula")
+        else
         {
-            if (previousSceneToRender !== "Nebula")
-            {
-                musique.lanceLaMusique("whopper-whopper.mp3", burgerWar.getScene());
-                previousSceneToRender = "Nebula";
-            }
-            nebula.getScene().render();
-        }
-        else if (sceneToRender === "4")
-        {
-            console.log(4);
-        }
-        else{
-            console.error(sceneToRender);
+            console.error(SCENETORENDER);
         }
     });
 };
@@ -115,5 +79,5 @@ initFunction();
 
 // Resize
 window.addEventListener("resize", function () {
-    engine.resize();
+    ENGINE.resize();
 });

@@ -10,17 +10,17 @@ class BurgerWar
 
     async initiate()
     {
-        this.scene = new BABYLON.Scene(engine);
+        this.scene = new BABYLON.Scene(ENGINE);
         this.scene.collisionsEnabled = true;
 
 
         /*const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-4, 2, 0), this.scene);
         camera.setTarget(BABYLON.Vector3.Zero());
-        camera.attachControl(canvas, true);*/
+        camera.attachControl(CANVAS, true);*/
 
         
         const camera=new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0,1,0), this.scene);
-        camera.attachControl(canvas, true);
+        camera.attachControl(CANVAS, true);
 
         camera.applyGravity = true;
         camera.checkCollisions = true;

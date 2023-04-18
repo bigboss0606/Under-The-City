@@ -4,15 +4,18 @@ class Musique
 
 
 
-    constructor(scene){
-        this.musique = new BABYLON.Sound("music", "musique/relaxing.mp3", scene, null, { loop: true, autoplay: true });
+    constructor(){
+        this.musique = null;
     }
 
 
 
     lanceLaMusique(nom, scene)
     {
-        this.musique.dispose();
+        if (this.musique)
+        {
+            this.musique.dispose();
+        }
         this.musique = new BABYLON.Sound("music", "musique/" + nom, scene, null, { loop: true, autoplay: true });
     }
 }

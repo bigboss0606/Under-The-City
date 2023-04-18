@@ -1,4 +1,4 @@
-class OperturaUI
+class CombatUI
 {
     advancedTexture;
     textScore;

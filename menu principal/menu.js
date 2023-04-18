@@ -1,7 +1,6 @@
 class Menu
 {
     scene;
-    buttonBurgerWar;
     buttonOpertura;
     advancedTexture;
 
@@ -12,11 +11,11 @@ class Menu
 
     initiate()
     {
-        this.scene = new BABYLON.Scene(engine);
+        this.scene = new BABYLON.Scene(ENGINE);
 
         let camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0));
         camera.setTarget(BABYLON.Vector3.Zero());
-        camera.attachControl(canvas, true);
+        camera.attachControl(CANVAS, true);
 
         let  light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -1, 1), this.scene);
         light.position = new BABYLON.Vector3(0, 15, -30);
@@ -45,56 +44,43 @@ class Menu
         selectBox.addControl(text);  
 
 
-        this.buttonOpertura = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 1 : Opertura");
-        this.buttonOpertura.width = "40%";
-        this.buttonOpertura.height = "8%";
-        this.buttonOpertura.top = "-3%";
-        this.buttonOpertura.background = "#FF0000";
-        this.buttonOpertura.cornerRadius = 30;
-        this.buttonOpertura.fontSize = 30;
-        this.buttonOpertura.color = "white";
-        selectBox.addControl(this.buttonOpertura);
+        let buttonResto = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 1 : Opertura");
+        buttonResto.width = "40%";
+        buttonResto.height = "8%";
+        buttonResto.top = "-3%";
+        buttonResto.background = "#FF0000";
+        buttonResto.cornerRadius = 30;
+        buttonResto.fontSize = 30;
+        buttonResto.color = "white";
+        selectBox.addControl(buttonResto);
+        buttonResto.onPointerClickObservable.add(() => {
+            SCENETORENDER = "resto";
+            this.cacher();
+        });
 
-        this.buttonBurgerWar = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 2 : Burger War");
-        this.buttonBurgerWar.width = "40%";
-        this.buttonBurgerWar.height = "8%";
-        this.buttonBurgerWar.top = "9%";
-        this.buttonBurgerWar.background = "#FF0000";
-        this.buttonBurgerWar.cornerRadius = 30;
-        this.buttonBurgerWar.fontSize = 30;
-        this.buttonBurgerWar.color = "white";
-        selectBox.addControl(this.buttonBurgerWar);
+        let buttonCombat = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 2 : Burger War");
+        buttonCombat.width = "40%";
+        buttonCombat.height = "8%";
+        buttonCombat.top = "9%";
+        buttonCombat.background = "#FF0000";
+        buttonCombat.cornerRadius = 30;
+        buttonCombat.fontSize = 30;
+        buttonCombat.color = "white";
+        selectBox.addControl(buttonCombat);
+        buttonCombat.onPointerClickObservable.add(() => {
+            SCENETORENDER = "combat";
+            this.cacher();
+        });
 
-        this.button3 = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 3 : ???");
-        this.button3.width = "40%";
-        this.button3.height = "8%";
-        this.button3.top = "21%";
-        this.button3.background = "#FF0000";
-        this.button3.cornerRadius = 30;
-        this.button3.fontSize = 30;
-        this.button3.color = "white";
-        selectBox.addControl(this.button3);
-
-        this.button4 = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 4 : ???");
-        this.button4.width = "40%";
-        this.button4.height = "8%";
-        this.button4.top = "33%";
-        this.button4.background = "#FF0000";
-        this.button4.cornerRadius = 30;
-        this.button4.fontSize = 30;
-        this.button4.color = "white";
-        selectBox.addControl(this.button4);
-
-
-        this.button4 = BABYLON.GUI.Button.CreateSimpleButton("but", "Remerciement");
-        this.button4.width = "20%";
-        this.button4.height = "6%";
-        this.button4.top = "45%";
-        this.button4.background = "#00FFFF";
-        this.button4.cornerRadius = 30;
-        this.button4.fontSize = 30;
-        this.button4.color = "white";
-        selectBox.addControl(this.button4);
+        
+        /*let textRemerciements = new BABYLON.GUI.TextBlock();
+        textRemerciements.text = "Un projet du grand rob1\n D'après une idée du magnifique rob1\n Des modèles époustouflants du prodigieux rob1 \n Réalisé par l'incroyable rob1";
+        textRemerciements.color = "white";
+        textRemerciements.fontSize = 30;
+        textRemerciements.top = "35%";
+        textRemerciements.width = "80%";
+        textRemerciements.background = "#00FF00";
+        selectBox.addControl(textRemerciements);  */
     }
 
 
