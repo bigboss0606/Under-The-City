@@ -2,6 +2,7 @@ class CombatUI
 {
     advancedTexture;
     textScore;
+    textVie;
     textFPS;
     
 
@@ -18,7 +19,7 @@ class CombatUI
     createTextScore()
     {
         let textBox = new BABYLON.GUI.SelectionPanel("textBox");
-        textBox.width = 0.3;
+        textBox.width = 0.2;
         textBox.height = 0.12;
         textBox.background = "#1388AF";
         textBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
@@ -28,9 +29,23 @@ class CombatUI
         this.textScore.text = "Score : 0";
         this.textScore.color = "white";
         this.textScore.fontSize = 40;
+        textBox.addControl(this.textScore);
 
-        textBox.addControl(this.textScore);  
+        let truc = new BABYLON.GUI.SelectionPanel("truc");
+        truc.width = 0.2;
+        truc.height = 0.12;
+        truc.background = "#1388AF";
+        truc.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        truc.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+
+        this.textVie = new BABYLON.GUI.TextBlock();
+        this.textVie.text = "PV : 3";
+        this.textVie.color = "white";
+        this.textVie.fontSize = 40;
+        truc.addControl(this.textVie);  
+
         this.advancedTexture.addControl(textBox);
+        this.advancedTexture.addControl(truc);
     }
 
     setTextScore(text)
@@ -38,11 +53,16 @@ class CombatUI
         this.textScore.text = text;
     }
 
+    setTextVie(texte)
+    {
+        this.textVie.text = texte;
+    }
+
 
     createTextFPS()
     {
         let textBox = new BABYLON.GUI.SelectionPanel("textBox");
-        textBox.width = 0.3;
+        textBox.width = 0.2;
         textBox.height = 0.12;
         textBox.background = "#1388AF";
         textBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -52,8 +72,8 @@ class CombatUI
         this.textFPS.text = "FPS";
         this.textFPS.color = "white";
         this.textFPS.fontSize = 40;
+        textBox.addControl(this.textFPS);
 
-        textBox.addControl(this.textFPS);  
         this.advancedTexture.addControl(textBox);
     }
 

@@ -5,21 +5,16 @@ class Menu
     advancedTexture;
 
 
-    constructor(){}
-
-
-
-    initiate()
-    {
+    constructor(){
         this.scene = new BABYLON.Scene(ENGINE);
+        this.scene.createDefaultCameraOrLight(true, true, true);
 
-        let camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0));
-        camera.setTarget(BABYLON.Vector3.Zero());
-        camera.attachControl(CANVAS, true);
+        this.createUI();
+    }
 
-        let  light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -1, 1), this.scene);
-        light.position = new BABYLON.Vector3(0, 15, -30);
 
+    createUI()
+    {
         this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
         let selectBox = new BABYLON.GUI.SelectionPanel("spi");
@@ -54,7 +49,7 @@ class Menu
         buttonResto.color = "white";
         selectBox.addControl(buttonResto);
         buttonResto.onPointerClickObservable.add(() => {
-            SCENETORENDER = "resto";
+            allerABikiniBottom();
             this.cacher();
         });
 
@@ -68,7 +63,7 @@ class Menu
         buttonCombat.color = "white";
         selectBox.addControl(buttonCombat);
         buttonCombat.onPointerClickObservable.add(() => {
-            SCENETORENDER = "combat";
+            allerAuCombat();
             this.cacher();
         });
 

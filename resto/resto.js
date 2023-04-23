@@ -13,7 +13,6 @@ class Resto
         this.scene = new BABYLON.Scene(ENGINE);
         //this.scene.collisionsEnabled = true;
      
-        this.scene.debugLayer.show();
 
         const UI = new RestoUI();
         this.scene.onBeforeRenderObservable.add(() => {

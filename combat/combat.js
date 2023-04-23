@@ -1,60 +1,50 @@
 class Combat
 {
     scene;
+    UI;
+
+    estPret;
+    combatEnCours;
+    ennemi;
+    pointDeVie;
+
+    zoneValide;
+    zoneFin;
+    mats;
+
+    notes;
+    duree;
+    temps;
+    notesCrees;
+    aAppuye;
 
 
 
-    constructor(){}
-
-
-
-    async initiate()
+    constructor()
     {
-        this.scene = new BABYLON.Scene(ENGINE);
+        this.estPret = false;
+        this.pointDeVie = 3;
+        this.ennemi = null;
+        this.combatEnCours = false;
 
+        this.scene = new BABYLON.Scene(ENGINE);
         //this.scene.debugLayer.show();
 
+        this.UI = new CombatUI();
+        this.scene.onBeforeRenderObservable.add(() => {
+            this.UI.setTextFPS(Math.round(ENGINE.getFps())); 
+        });
 
-        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, 18), this.scene);
-        camera.setTarget(BABYLON.Vector3.Zero());
-        camera.attachControl(CANVAS, true);
-        camera.speed = 0.5;
-        camera.angularSensibility = 4000;
-        camera.keysUp.push(87);
-        camera.keysUp.push(90);
-        camera.keysRight.push(68);
-        camera.keysDown.push(83);
-        camera.keysLeft.push(81);
-
+        this.creerCamera();
         const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
     
-        const UI = new CombatUI();
 
 
-        let isReady = false;
 
-
-        let zoneValide;
-        let zoneFin;
-        BABYLON.SceneLoader.ImportMeshAsync("", "combat/", "estrade.glb", this.scene).then(() => {
-            zoneValide = this.scene.getMeshByName("ZoneValide");
-            var glass = new BABYLON.PBRMaterial("glass", this.scene);
-            glass.indexOfRefraction = 0.52;
-            glass.alpha = 0.5;
-            glass.directIntensity = 0.0;
-            glass.environmentIntensity = 0.7;
-            glass.cameraExposure = 0.66;
-            glass.cameraContrast = 1.66;
-            glass.microSurface = 1;
-            glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
-            glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
-            zoneValide.material = glass;
-
-            zoneFin = this.scene.getMeshByName("ZoneFin");
-            zoneFin.isVisible = false;
-
-            isReady = true;
-        });
+        this.zoneValide = null;
+        this.zoneFin = null;
+        this.importerDecor();
+        
 
         
         let matRouge = new BABYLON.StandardMaterial("matRouge");
@@ -67,169 +57,215 @@ class Combat
         matYellow.diffuseColor = BABYLON.Color3.Yellow();
         let matTeal = new BABYLON.StandardMaterial("matTeal");
         matTeal.diffuseColor = BABYLON.Color3.Teal();
-        let mats = [matRouge, matBlue, matVert, matYellow, matTeal];
+        this.mats = [matRouge, matBlue, matVert, matYellow, matTeal];
 
 
-        let notes = [[0, 0], [60, 1], [120, 2], [180, 3], [240, 4], [300, 4],  [360, 3], [420, 2], [480, 1], [540, 0]];
-        let duree = 600;
-        let i = 0;
+
+        this.notes = [[120, 0], [180, 1], [240, 2], [300, 3], [360, 4], [420, 4],  [480, 3], [540, 2], [600, 1], [660, 0]];
+        this.duree = 600;
+        this.temps = 0;
+    
+        this.notesCrees = [];
+        this.aAppuye = false;
+
         
-
-        let notesCrees = [];
-        let aAppuye = false;
-
-        this.scene.onBeforeRenderObservable.add(() => {
-            UI.setTextFPS(Math.round(ENGINE.getFps()));
-            
-        });
        
         this.scene.onBeforeRenderObservable.add(() => {
-            if (isReady)
+            if (this.estPret && this.combatEnCours)
             {            
-                for (let couple of notes)
-                {
-                    if(couple[0] === i % duree)
-                    {
-                        notesCrees.push(new Note(couple[1], mats[couple[1]], this.scene));
-                    }
-                }
+                this.creerNotes();
+                this.avancerNotes();
+                this.supprimernotes();
+                this.verifierSiGagner();
             }                
-            i++;
+            this.temps++;
         });
 
-        this.scene.onBeforeRenderObservable.add(() => {
-            if (isReady)
-            {
-                let clone = [...notesCrees];
-                for (let note of clone)
-                {
-                    if (note.getMesh().intersectsMesh(zoneValide)) {
-                        
-                    }
-
-                    if (note.getMesh().intersectsMesh(zoneFin)) {
-                        note.detruire();
-
-                        const index = notesCrees.indexOf(note);
-                        notesCrees.splice(index, 1);
-
-                        UI.setTextScore("Raté");
-                    }
-
-                    note.avancer();
-                }
-            }
-        });
 
         this.scene.onKeyboardObservable.add((kbInfo) => {
-            if (isReady)
+            if (this.estPret && this.combatEnCours)
             {
                 switch (kbInfo.type) {
                     case BABYLON.KeyboardEventTypes.KEYDOWN:
-                        if (!aAppuye)
+                        if (!this.aAppuye)
                         {
-                            aAppuye = true;
+                            this.aAppuye = true;
 
                             let aucuneNoteTouche = true;
-                            let clone = [...notesCrees];
+                            let clone = [...this.notesCrees];
 
-                            switch (kbInfo.event.key) {
-                                case "x":
-                                case "X":
-                                    console.log(2);
+                            let touches = ["x", "c", "v", "b", "n"];
+                            for (let i = 0; i < 5; i++)
+                            {
+                                if(kbInfo.event.key == touches[i])
+                                {
                                     for (let note of clone)
                                     {
-                                        if (note.ligne == 0 && note.getMesh().intersectsMesh(zoneValide)) {
+                                        if (note.ligne == i && note.getMesh().intersectsMesh(this.zoneValide)) {
                                             note.detruire();
 
-                                            const index = notesCrees.indexOf(note);
-                                            notesCrees.splice(index, 1);
+                                            const index = this.notesCrees.indexOf(note);
+                                            this.notesCrees.splice(index, 1);
 
-                                            UI.setTextScore("Bien joué");
+                                            this.UI.setTextScore("Bien joué");
                                             aucuneNoteTouche = false;
                                         }
                                     }
-                                    break;
-
-                                case "c":
-                                case "C":
-                                    for (let note of clone)
-                                    {
-                                        if (note.ligne == 1 && note.getMesh().intersectsMesh(zoneValide)) {
-                                            note.detruire();
-
-                                            const index = notesCrees.indexOf(note);
-                                            notesCrees.splice(index, 1);
-
-                                            UI.setTextScore("Bien joué");
-                                            aucuneNoteTouche = false;
-                                        }
-                                    }
-                                    break;
-
-                                case "v":
-                                case "V":
-                                    for (let note of clone)
-                                    {
-                                        if (note.ligne == 2 && note.getMesh().intersectsMesh(zoneValide)) {
-                                            note.detruire();
-
-                                            const index = notesCrees.indexOf(note);
-                                            notesCrees.splice(index, 1);
-
-                                            UI.setTextScore("Bien joué");
-                                            aucuneNoteTouche = false;
-                                        }
-                                    }
-                                    break;
-
-                                case "b":
-                                case "B":
-                                    for (let note of clone)
-                                    {
-                                        if (note.ligne == 3 && note.getMesh().intersectsMesh(zoneValide)) {
-                                            note.detruire();
-
-                                            const index = notesCrees.indexOf(note);
-                                            notesCrees.splice(index, 1);
-
-                                            UI.setTextScore("Bien joué");
-                                            aucuneNoteTouche = false;
-                                        }
-                                    }
-                                    break;
-
-                                case "n":
-                                case "N":
-                                    for (let note of clone)
-                                    {
-                                        if (note.ligne == 4 && note.getMesh().intersectsMesh(zoneValide)) {
-                                            note.detruire();
-
-                                            const index = notesCrees.indexOf(note);
-                                            notesCrees.splice(index, 1);
-
-                                            UI.setTextScore("Bien joué");
-                                            aucuneNoteTouche = false;
-                                        }
-                                    }
-                                    break;
+                                }
                             }
 
                             if (aucuneNoteTouche)
                             {
-                                UI.setTextScore("Aie");
+                                this.UI.setTextScore("Aie");
+                                //this.perdreUnPV();
                             }
                         }
                         break;
                         
                     case BABYLON.KeyboardEventTypes.KEYUP:
-                        aAppuye = false;
+                        this.aAppuye = false;
                         break;
                 }
             }
         });
     }
+
+
+    creerCamera()
+    {
+        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 5, 18), this.scene);
+        camera.setTarget(BABYLON.Vector3.Zero());
+        /*camera.attachControl(CANVAS, true);
+        camera.speed = 0.5;
+        camera.angularSensibility = 4000;
+        camera.keysUp.push(87);
+        camera.keysUp.push(90);
+        camera.keysRight.push(68);
+        camera.keysDown.push(83);
+        camera.keysLeft.push(81);*/
+    }
+
+    async importerDecor()
+    {
+        BABYLON.SceneLoader.ImportMeshAsync("", "combat/", "estrade.glb", this.scene).then(() => {
+            this.zoneValide = this.scene.getMeshByName("ZoneValide");
+            var glass = new BABYLON.PBRMaterial("glass", this.scene);
+            glass.indexOfRefraction = 0.52;
+            glass.alpha = 0.5;
+            glass.directIntensity = 0.0;
+            glass.environmentIntensity = 0.7;
+            glass.cameraExposure = 0.66;
+            glass.cameraContrast = 1.66;
+            glass.microSurface = 1;
+            glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+            glass.albedoColor = new BABYLON.Color3(0.95, 0.95, 0.95);
+            this.zoneValide.material = glass;
+
+            this.zoneFin = this.scene.getMeshByName("ZoneFin");
+            this.zoneFin.isVisible = false;
+
+        this.estPret = true;
+        });
+    }
+
+
+
+
+    creerNotes()
+    {
+        for (let couple of this.notes)
+        {
+            if(couple[0] === this.temps)
+            {
+                this.notesCrees.push(new Note(couple[1], this.mats[couple[1]], this.scene));
+            }
+        }
+    }
+
+    avancerNotes()
+    {
+        for (let note of this.notesCrees)
+        {
+            note.avancer();
+        }
+    }
+
+    supprimernotes()
+    {
+        let clone = [...this.notesCrees];
+        for (let note of clone)
+        {
+            if (note.getMesh().intersectsMesh(this.zoneFin)) {
+                note.detruire();
+
+                const index = this.notesCrees.indexOf(note);
+                this.notesCrees.splice(index, 1);
+
+                this.UI.setTextScore("Raté");
+
+                this.perdreUnPV();
+            }
+        }
+    }
+
+
+
+
+    perdreUnPV()
+    {
+        this.pointDeVie -= 1;
+        if(this.pointDeVie <= 0)
+        {
+            this.perdre();
+        }
+        this.UI.setTextVie("PV : " + this.pointDeVie);
+    }
+
+    verifierSiGagner()
+    {
+        if(this.temps >= 780)
+        {
+            this.gagner();
+        }
+    }
+
+    gagner()
+    {
+        for (let note of this.notesCrees)
+        {
+            note.detruire();
+        }
+        this.notesCrees = [];
+        this.combatEnCours = false;
+        allerABikiniBottom();
+    }
+
+    perdre()
+    {
+        for (let note of this.notesCrees)
+        {
+            note.detruire();
+        }
+        this.notesCrees = [];
+        this.combatEnCours = false;
+        allerAuMenu();
+    }
+
+
+    setEnnemi(ennemi)
+    {
+        this.ennemi = ennemi;
+    }
+
+    lancer()
+    {
+        this.UI.setTextVie("PV : 3");
+        this.UI.setTextScore("Bonne chance !");
+        this.combatEnCours = true;
+        this.pointDeVie = 3;
+        this.temps = 0;
+    }
+
 
     getScene()
     {

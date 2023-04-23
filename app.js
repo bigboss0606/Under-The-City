@@ -5,26 +5,19 @@ var PREVIOUSSCENETORENDER = null;
 
 
 
-function createMenu()
+function allerAuMenu()
 {
-    let menu = new Menu();
-    menu.initiate();
-    return menu.getScene();
+    SCENETORENDER = "menu";
 }
 
-
-function createCombat() 
+function allerABikiniBottom()
 {
-    let game = new Combat();
-    game.initiate();
-    return game;
+    SCENETORENDER = "bikini bottom";
 }
 
-function createResto() 
+function allerAuCombat(ennemi)
 {
-    let game = new Resto();
-    game.initiate();
-    return game;
+    SCENETORENDER = "combat";
 }
 
 
@@ -33,9 +26,10 @@ var initFunction = async function()
 {
     ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
 
-    let menu = createMenu();
-    let resto = createResto();
-    let combat = createCombat();
+    let menu = new Menu();
+    //let resto = createResto();
+    let bikiniBottom = new BikiniBottom();
+    let combat = new Combat();
 
     let musique = new Musique(menu);
 
@@ -46,12 +40,13 @@ var initFunction = async function()
         {
             if (PREVIOUSSCENETORENDER !== "menu")
             {
-                musique.lanceLaMusique("relaxing.mp3", menu);
+                musique.lanceLaMusique("relaxing.mp3", menu.getScene());
+                menu.createUI();
                 PREVIOUSSCENETORENDER = "menu";
             }
-            menu.render();
+            menu.getScene().render();
         }
-        else if (SCENETORENDER === "resto")
+        /*else if (SCENETORENDER === "resto")
         {
             if (PREVIOUSSCENETORENDER !== "resto")
             {
@@ -59,12 +54,22 @@ var initFunction = async function()
                 PREVIOUSSCENETORENDER = "resto";
             }
             resto.getScene().render();
+        }*/
+        else if (SCENETORENDER === "bikini bottom")
+        {
+            if (PREVIOUSSCENETORENDER !== "bikini bottom")
+            {
+                musique.lanceLaMusique("whopper-whopper.mp3", bikiniBottom.getScene());
+                PREVIOUSSCENETORENDER = "bikini bottom";
+            }
+            bikiniBottom.getScene().render();
         }
         else if (SCENETORENDER === "combat")
         {
             if (PREVIOUSSCENETORENDER !== "combat")
             {
                 musique.lanceLaMusique("coniferous-forest.mp3", combat.getScene());
+                combat.lancer();
                 PREVIOUSSCENETORENDER = "combat";
             }
             combat.getScene().render();
