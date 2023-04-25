@@ -29,24 +29,37 @@ class Combat
 
         this.scene = new BABYLON.Scene(ENGINE);
         //this.scene.debugLayer.show();
+        this.creerCamera();
+        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
+    
 
         this.UI = new CombatUI();
         this.scene.onBeforeRenderObservable.add(() => {
             this.UI.setTextFPS(Math.round(ENGINE.getFps())); 
         });
+        this.UI.buttonLancer.onPointerClickObservable.add(() => {
+            this.combatEnCours = true;
+            console.log("lancer");
+            this.UI.cacherBoutonLancer();
+        });
+        this.UI.buttonGagner.onPointerClickObservable.add(() => {
+            this.UI.cacherBoutonGagner();
+            console.log("gagner");
+            allerABikiniBottom();
+        });
+        this.UI.buttonPerdre.onPointerClickObservable.add(() => {
+            this.UI.cacherBoutonPerdre();
+            console.log("perdre");
+            allerAuMenu();
+        });
 
-        this.creerCamera();
-        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), this.scene);
-    
 
-
-
+        
         this.zoneValide = null;
         this.zoneFin = null;
         this.importerDecor();
         
 
-        
         let matRouge = new BABYLON.StandardMaterial("matRouge");
         matRouge.diffuseColor = BABYLON.Color3.Red();
         let matVert = new BABYLON.StandardMaterial("matVert");
@@ -128,6 +141,9 @@ class Combat
                 }
             }
         });
+
+
+        this.lancer();
     }
 
 
@@ -169,6 +185,24 @@ class Combat
     }
 
 
+
+    lancer()
+    {
+        this.UI.setTextScore("Bonne chance !");
+        this.UI.setTextVie("PV : 3");
+        this.pointDeVie = 3;
+        this.temps = 0;
+        this.UI.montrerBoutonLancer();
+    }
+
+    nettoyer()
+    {
+        for (let note of this.notesCrees)
+        {
+            note.detruire();
+        }
+        this.notesCrees = [];
+    }
 
 
     creerNotes()
@@ -229,26 +263,19 @@ class Combat
         }
     }
 
+
     gagner()
     {
-        for (let note of this.notesCrees)
-        {
-            note.detruire();
-        }
-        this.notesCrees = [];
+        this.nettoyer();
         this.combatEnCours = false;
-        allerABikiniBottom();
+        this.UI.montrerBoutonGagner();
     }
 
     perdre()
     {
-        for (let note of this.notesCrees)
-        {
-            note.detruire();
-        }
-        this.notesCrees = [];
+        this.nettoyer();
         this.combatEnCours = false;
-        allerAuMenu();
+        this.UI.montrerBoutonPerdre();
     }
 
 
@@ -257,14 +284,7 @@ class Combat
         this.ennemi = ennemi;
     }
 
-    lancer()
-    {
-        this.UI.setTextVie("PV : 3");
-        this.UI.setTextScore("Bonne chance !");
-        this.combatEnCours = true;
-        this.pointDeVie = 3;
-        this.temps = 0;
-    }
+    
 
 
     getScene()

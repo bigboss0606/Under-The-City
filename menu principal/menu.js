@@ -1,14 +1,15 @@
 class Menu
 {
     scene;
-    buttonOpertura;
     advancedTexture;
+    stackPanel;
 
 
-    constructor(){
+    constructor()
+    {
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.createDefaultCameraOrLight(true, true, true);
-
+        //this.scene.debugLayer.show();
         this.createUI();
     }
 
@@ -17,71 +18,86 @@ class Menu
     {
         this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
-        let selectBox = new BABYLON.GUI.SelectionPanel("spi");
-        selectBox.background = "#1388AF";
-        this.advancedTexture.addControl(selectBox);
+        this.stackPanel = new BABYLON.GUI.StackPanel();
+        this.stackPanel.height = "100%";
+        this.stackPanel.width = "100%";
+        this.stackPanel.background = "#00FF00";
 
         let titre = new BABYLON.GUI.TextBlock();
-        titre.top = "-30%";
+        titre.width = "800px";
+        titre.height = "200px";
+        titre.paddingTop = "100px";
         titre.color = "white";
         titre.fontSize = 100;
         titre.text = "Under The City";
-        selectBox.addControl(titre);  
+        this.stackPanel.addControl(titre);  
 
 
         let text = new BABYLON.GUI.TextBlock();
+        text.width = "800px";
+        text.height = "200px";
         text.text = "La Terre est au bord de la destruction\nVous seul pouvez sauver le monde !!!";
         text.color = "white";
         text.fontSize = 20;
-        text.top = "-15%";
-        text.width = "80%";
-        text.background = "#00FF00";
-        selectBox.addControl(text);  
+        this.stackPanel.addControl(text);  
 
 
         let buttonResto = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 1 : Opertura");
-        buttonResto.width = "40%";
-        buttonResto.height = "8%";
-        buttonResto.top = "-3%";
+        buttonResto.width = "200px";
+        buttonResto.height = "100px";
         buttonResto.background = "#FF0000";
         buttonResto.cornerRadius = 30;
         buttonResto.fontSize = 30;
         buttonResto.color = "white";
-        selectBox.addControl(buttonResto);
+        this.stackPanel.addControl(buttonResto);
+
+
         buttonResto.onPointerClickObservable.add(() => {
+            quitterMenu();
             allerABikiniBottom();
-            this.cacher();
         });
 
+
+        let espace = new BABYLON.GUI.TextBlock();
+        espace.width = "800px";
+        espace.height = "40px";
+        this.stackPanel.addControl(espace);  
+
+
         let buttonCombat = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 2 : Burger War");
-        buttonCombat.width = "40%";
-        buttonCombat.height = "8%";
-        buttonCombat.top = "9%";
+        buttonCombat.width = "200px";
+        buttonCombat.height = "100px";
         buttonCombat.background = "#FF0000";
         buttonCombat.cornerRadius = 30;
         buttonCombat.fontSize = 30;
         buttonCombat.color = "white";
-        selectBox.addControl(buttonCombat);
+        this.stackPanel.addControl(buttonCombat);
+
         buttonCombat.onPointerClickObservable.add(() => {
+            quitterMenu();
             allerAuCombat();
-            this.cacher();
         });
 
         
-        /*let textRemerciements = new BABYLON.GUI.TextBlock();
+        let textRemerciements = new BABYLON.GUI.TextBlock();
+        textRemerciements.width = "800px";
+        textRemerciements.height = "150px";
         textRemerciements.text = "Un projet du grand rob1\n D'après une idée du magnifique rob1\n Des modèles époustouflants du prodigieux rob1 \n Réalisé par l'incroyable rob1";
         textRemerciements.color = "white";
-        textRemerciements.fontSize = 30;
-        textRemerciements.top = "35%";
-        textRemerciements.width = "80%";
-        textRemerciements.background = "#00FF00";
-        selectBox.addControl(textRemerciements);  */
+        textRemerciements.fontSize = 18;
+        this.stackPanel.addControl(textRemerciements);
     }
 
 
-    cacher()
+    cacherUI()
     {
-        this.advancedTexture.dispose();
+        this.advancedTexture.removeControl(this.stackPanel);
+        //this.stackPanel.dispose();
+    }
+
+    montrerUI()
+    {
+        this.advancedTexture.addControl(this.stackPanel);
     }
 
 

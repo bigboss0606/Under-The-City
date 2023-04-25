@@ -1,86 +1,60 @@
-var CANVAS = document.getElementById("renderCanvas");
-var ENGINE = null;
-var SCENETORENDER = "menu";
-var PREVIOUSSCENETORENDER = null;
+let CANVAS = document.getElementById("renderCanvas");
+let ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
+
+let MENU = new Menu();
+let BIKINIBOTTOM = new BikiniBottom();
+let COMBAT = new Combat();
+
+let SCENETORENDER = null;
+
+let MUSIQUE = new Musique();
 
 
+
+function quitterMenu()
+{
+    MENU.cacherUI();
+}
 
 function allerAuMenu()
 {
-    SCENETORENDER = "menu";
+    MENU.montrerUI();
+    MUSIQUE.lanceLaMusique("relaxing.mp3", MENU.getScene());
+    SCENETORENDER = MENU.getScene();
+}
+
+
+function quitterBikiniBottom()
+{
+
 }
 
 function allerABikiniBottom()
 {
-    SCENETORENDER = "bikini bottom";
+    MUSIQUE.lanceLaMusique("whopper-whopper.mp3", BIKINIBOTTOM.getScene());
+    SCENETORENDER = BIKINIBOTTOM.getScene();;
+}
+
+
+function quitterCombat()
+{
+
 }
 
 function allerAuCombat(ennemi)
 {
-    SCENETORENDER = "combat";
+    MUSIQUE.lanceLaMusique("coniferous-forest.mp3", COMBAT.getScene());
+    COMBAT.lancer();
+    SCENETORENDER = COMBAT.getScene();
 }
 
 
-
-var initFunction = async function() 
-{
-    ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
-
-    let menu = new Menu();
-    //let resto = createResto();
-    let bikiniBottom = new BikiniBottom();
-    let combat = new Combat();
-
-    let musique = new Musique(menu);
+allerAuMenu();
+ENGINE.runRenderLoop(function () {
+    SCENETORENDER.render();
+});
 
 
-    ENGINE.runRenderLoop(function () {
-        console.log(SCENETORENDER);
-        if (SCENETORENDER === "menu")
-        {
-            if (PREVIOUSSCENETORENDER !== "menu")
-            {
-                musique.lanceLaMusique("relaxing.mp3", menu.getScene());
-                menu.createUI();
-                PREVIOUSSCENETORENDER = "menu";
-            }
-            menu.getScene().render();
-        }
-        /*else if (SCENETORENDER === "resto")
-        {
-            if (PREVIOUSSCENETORENDER !== "resto")
-            {
-                musique.lanceLaMusique("whopper-whopper.mp3", resto.getScene());
-                PREVIOUSSCENETORENDER = "resto";
-            }
-            resto.getScene().render();
-        }*/
-        else if (SCENETORENDER === "bikini bottom")
-        {
-            if (PREVIOUSSCENETORENDER !== "bikini bottom")
-            {
-                musique.lanceLaMusique("whopper-whopper.mp3", bikiniBottom.getScene());
-                PREVIOUSSCENETORENDER = "bikini bottom";
-            }
-            bikiniBottom.getScene().render();
-        }
-        else if (SCENETORENDER === "combat")
-        {
-            if (PREVIOUSSCENETORENDER !== "combat")
-            {
-                musique.lanceLaMusique("coniferous-forest.mp3", combat.getScene());
-                combat.lancer();
-                PREVIOUSSCENETORENDER = "combat";
-            }
-            combat.getScene().render();
-        }
-        else
-        {
-            console.error(SCENETORENDER);
-        }
-    });
-};
-initFunction();
 
 // Resize
 window.addEventListener("resize", function () {
