@@ -1,6 +1,8 @@
 let CANVAS = document.getElementById("renderCanvas");
 let ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
 
+let HEROS = new Heros();
+
 let MENU = new Menu();
 let BIKINIBOTTOM = new BikiniBottom();
 let COMBAT = new Combat();
@@ -26,13 +28,14 @@ function allerAuMenu()
 
 function quitterBikiniBottom()
 {
-
+    BIKINIBOTTOM.explorationEnCours = false;
 }
 
 function allerABikiniBottom()
 {
     MUSIQUE.lanceLaMusique("whopper-whopper.mp3", BIKINIBOTTOM.getScene());
-    SCENETORENDER = BIKINIBOTTOM.getScene();;
+    BIKINIBOTTOM.lancer();
+    SCENETORENDER = BIKINIBOTTOM.getScene();
 }
 
 

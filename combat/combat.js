@@ -23,7 +23,7 @@ class Combat
     constructor()
     {
         this.estPret = false;
-        this.pointDeVie = 3;
+        this.pointDeVie = HEROS.getPointDeVieMax();
         this.ennemi = null;
         this.combatEnCours = false;
 
@@ -39,17 +39,14 @@ class Combat
         });
         this.UI.buttonLancer.onPointerClickObservable.add(() => {
             this.combatEnCours = true;
-            console.log("lancer");
             this.UI.cacherBoutonLancer();
         });
         this.UI.buttonGagner.onPointerClickObservable.add(() => {
             this.UI.cacherBoutonGagner();
-            console.log("gagner");
             allerABikiniBottom();
         });
         this.UI.buttonPerdre.onPointerClickObservable.add(() => {
             this.UI.cacherBoutonPerdre();
-            console.log("perdre");
             allerAuMenu();
         });
 
@@ -85,7 +82,8 @@ class Combat
        
         this.scene.onBeforeRenderObservable.add(() => {
             if (this.estPret && this.combatEnCours)
-            {            
+            {        
+                console.log("combat");    
                 this.creerNotes();
                 this.avancerNotes();
                 this.supprimernotes();
@@ -188,10 +186,10 @@ class Combat
 
     lancer()
     {
+        this.nettoyer();
         this.UI.setTextScore("Bonne chance !");
-        this.UI.setTextVie("PV : 3");
-        this.pointDeVie = 3;
-        this.temps = 0;
+        this.pointDeVie = HEROS.getPointDeVieMax();
+        this.UI.setTextVie("PV : " + this.pointDeVie);
         this.UI.montrerBoutonLancer();
     }
 
@@ -202,6 +200,7 @@ class Combat
             note.detruire();
         }
         this.notesCrees = [];
+        this.temps = 0;
     }
 
 
@@ -257,7 +256,7 @@ class Combat
 
     verifierSiGagner()
     {
-        if(this.temps >= 780)
+        if(this.temps >= 840)
         {
             this.gagner();
         }
@@ -268,6 +267,7 @@ class Combat
     {
         this.nettoyer();
         this.combatEnCours = false;
+        HEROS.gagnerExperience(10);
         this.UI.montrerBoutonGagner();
     }
 

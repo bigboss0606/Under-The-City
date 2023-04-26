@@ -1,10 +1,15 @@
 class BikiniBottom
 {
     scene;
+    estPret;
+    ennemis;
+    explorationEnCours;
 
 
     constructor(){
         this.scene = new BABYLON.Scene(ENGINE);
+        this.estPret = false;
+        this.explorationEnCours = false;
         //this.scene.collisionsEnabled = true;
         //this.scene.debugLayer.show();
 
@@ -61,7 +66,38 @@ class BikiniBottom
             let burger8 = new Ennemi(burger.createInstance("burger8"), new BABYLON.Vector3(36, 0.75, -6), 0, [[90, 180], [180, 180]], 0.1, this.scene);
             let burger1 = new Ennemi(burger, new BABYLON.Vector3(30, 0.75, 46), 220, [[75, 180], [150, 180]], 0.2, this.scene);
 
+            this.ennemis = [burger1, burger2, burger3, burger4, burger5, burger6, burger7, burger8];
+
+            for(let ennemi of this.ennemis)
+            {
+                ennemi.setOnClick(() => {
+                    if(this.estPret && this.explorationEnCours)
+                    {
+                        this.explorationEnCours = false;
+                        allerAuCombat(this);
+                    }
+                });
+            }
+     
+            this.estPret = true;
         });
+
+        
+        this.scene.onBeforeRenderObservable.add(() => {
+            if(this.estPret && this.explorationEnCours)
+            {
+                for(let ennemi of this.ennemis)
+                {
+                    ennemi.avancer();
+                }
+            }
+        });
+    }
+
+
+    lancer()
+    {
+        this.explorationEnCours = true;
     }
 
 

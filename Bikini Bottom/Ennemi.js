@@ -6,6 +6,7 @@ class Ennemi
     p;
     scene;
     estVivant;
+    experience;
 
 
     constructor(mesh, position, rotation, chemin, vitesse, scene)
@@ -19,36 +20,37 @@ class Ennemi
         this.vitesse = vitesse;
         this.scene = scene;
         this.estVivant = true;
-
-
-        this.scene.onBeforeRenderObservable.add(() => {
-            if (this.estVivant)
-            {
-                this.mesh.moveWithCollisions(this.mesh.forward.scaleInPlace(this.vitesse));
-                this.temps++;
-
-                if (this.temps == this.chemin[this.p][0])
-                {
-                    this.mesh.rotate(BABYLON.Vector3.Up(), BABYLON.Tools.ToRadians(this.chemin[this.p][1]));
-                    this.p++;
-
-                    if (this.p == this.chemin.length)
-                    {
-                        this.p = 0;
-                        this.temps = 0;
-                    }
-                }
-            }
-        });
+        this.experience = 10;
 
 
         this.mesh.actionManager = new BABYLON.ActionManager(this.scene);
-        this.mesh.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(
-                BABYLON.ActionManager.OnPickTrigger,
-                () => {allerAuCombat(this);
+    }
+
+    avancer()
+    {
+        if (this.estVivant)
+        {
+            this.mesh.moveWithCollisions(this.mesh.forward.scaleInPlace(this.vitesse));
+            this.temps++;
+
+            if (this.temps == this.chemin[this.p][0])
+            {
+                this.mesh.rotate(BABYLON.Vector3.Up(), BABYLON.Tools.ToRadians(this.chemin[this.p][1]));
+                this.p++;
+
+                if (this.p == this.chemin.length)
+                {
+                    this.p = 0;
+                    this.temps = 0;
                 }
-            )
+            }
+        }
+    }
+
+    setOnClick(func)
+    {
+        this.mesh.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, func)
         );
     }
 
