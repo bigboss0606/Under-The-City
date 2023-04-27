@@ -1,0 +1,28 @@
+{"producer":{"name":"Blender","version":"3.5.0","exporter_version":"3.3.0","file":"gorille.babylon"},
+"autoClear":true,"clearColor":[0.0509,0.0509,0.0509],"gravity":[0,-9.81,0],
+"materials":[{"name":"Material","id":"Material","customType":"BABYLON.PBRMaterial","albedo":[0,0,0],"emissive":[0,0,0],"reflectivity":[0.5,0.5,0.5],"roughness":0.5,"metallic":0},
+{"name":"gorille tete","id":"gorille tete","customType":"BABYLON.PBRMaterial","emissive":[0,0,0],"reflectivity":[0.5,0.5,0.5],"roughness":0.5,"metallic":0, 
+"albedoTexture":{"name":"gorille tete.jpg","hasAlpha":false,"level":1,"coordinatesMode":0,"coordinatesIndex":0,"wrapU":1,"wrapV":1},"useAlphaFromAlbedoTexture":false},
+{"name":"gorille devant","id":"gorille devant","customType":"BABYLON.PBRMaterial","emissive":[0,0,0],"reflectivity":[0.5,0.5,0.5],"roughness":0.5,"metallic":0, 
+"albedoTexture":{"name":"gorille devant.jpg","hasAlpha":false,"level":1,"coordinatesMode":0,"coordinatesIndex":0,"wrapU":1,"wrapV":1},"useAlphaFromAlbedoTexture":false},
+{"name":"gorille gauche","id":"gorille gauche","customType":"BABYLON.PBRMaterial","emissive":[0,0,0],"reflectivity":[0.5,0.5,0.5],"roughness":0.5,"metallic":0, 
+"albedoTexture":{"name":"gorille cote.jpg","hasAlpha":false,"level":1,"coordinatesMode":0,"coordinatesIndex":0,"wrapU":1,"wrapV":1},"useAlphaFromAlbedoTexture":false},
+{"name":"gorille droite","id":"gorille droite","customType":"BABYLON.PBRMaterial","emissive":[0,0,0],"reflectivity":[0.5,0.5,0.5],"roughness":0.5,"metallic":0, 
+"albedoTexture":{"name":"gorille a lenvers cote.png","hasAlpha":true,"level":1,"coordinatesMode":0,"coordinatesIndex":0,"wrapU":1,"wrapV":1},"useAlphaFromAlbedoTexture":true},
+{"name":"gorille dos","id":"gorille dos","customType":"BABYLON.PBRMaterial","emissive":[0,0,0],"reflectivity":[0.5,0.5,0.5],"roughness":0.5,"metallic":0, 
+"albedoTexture":{"name":"gorille de dos.jpg","hasAlpha":false,"level":1,"coordinatesMode":0,"coordinatesIndex":0,"wrapU":1,"wrapV":1},"useAlphaFromAlbedoTexture":false}],
+"multiMaterials":[{"name":"gorille.Multimaterial#0","id":"gorille.Multimaterial#0","materials":["Material","gorille tete","gorille devant","gorille gauche","gorille droite","gorille dos"]}],
+"meshes":[{"name":"Gorille","id":"Gorille","materialId":"gorille.Multimaterial#0","billboardMode":0,"position":[0,0,0],"rotation":[0,0,0],"scaling":[1,1,1],"isVisible":true,"isEnabled":true,"checkCollisions":true,"receiveShadows":true,"pickable":false
+,"positions":[-0.867,-1,-0.7696,0.867,-1,0.7696,0.867,-1,-0.7696,-0.867,-1,0.7696,-0.867,1,-0.7696,0.867,1,0.7696,-0.867,1,0.7696,0.867,1,-0.7696,-0.867,1,0.7696,0.867,-1,0.7696,-0.867,-1,0.7696,-0.867,1,0.7696,0.867,1,0.7696,0.867,-1,0.7696,-0.867,1,-0.7696,-0.867,-1,0.7696,-0.867,-1,-0.7696
+,-0.867,1,-0.7696,-0.867,1,0.7696,-0.867,-1,0.7696,0.867,1,0.7696,0.867,-1,-0.7696,0.867,-1,0.7696,0.867,1,0.7696,0.867,1,-0.7696,0.867,-1,-0.7696,0.867,1,-0.7696,-0.867,-1,-0.7696,0.867,-1,-0.7696,0.867,1,-0.7696,-0.867,1,-0.7696,-0.867,-1,-0.7696]
+,"normals":[0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,-1,0,0,-1,0,0,-1,0,0
+,-1,0,0,-1,0,0,-1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1]
+,"uvs":[0.333,0.305,0.002,0.744,0.002,0.305,0.333,0.744,1,1,0,0,1,0,0,1,0.867,0.863,0.152,0.036,0.867,0.036,0.867,0.863,0.152,0.863,0.152,0.036,0.846,0.923,0.236,0.073,0.846,0.073,0.846,0.923,0.236,0.923,0.236,0.073,0.789,0.92,0.246,0.033,0.789,0.033,0.789,0.92,0.246,0.92
+,0.246,0.033,1,1,0,0,1,0,1,1,0,1,0,0]
+,"indices":[0,1,2,0,3,1,4,5,6,4,7,5,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+,"subMeshes":[{"materialIndex":0,"verticesStart":0,"verticesCount":4,"indexStart":0,"indexCount":6},{"materialIndex":1,"verticesStart":4,"verticesCount":4,"indexStart":6,"indexCount":6},{"materialIndex":2,"verticesStart":8,"verticesCount":6,"indexStart":12,"indexCount":6},{"materialIndex":3,"verticesStart":14,"verticesCount":6,"indexStart":18,"indexCount":6},{"materialIndex":4,"verticesStart":20,"verticesCount":6,"indexStart":24,"indexCount":6},{"materialIndex":5,"verticesStart":26,"verticesCount":6,"indexStart":30,"indexCount":6}]
+,"instances":[]}
+],
+"cameras":[{"name":"Camera","id":"Camera","position":[7.3589,4.9583,-6.9258],"rotation":[0.4615,-0.8149,0],"fov":0.6911,"minZ":0.1,"maxZ":100,"ellipsoid":[0.2,0.9,0.2],"type":"UniversalCamera"}],"activeCameraID":"Camera",
+"lights":[{"name":"Light","id":"Light","type":0,"position":[4.0762,5.9039,1.0055],"range":40,"intensityMode":0,"intensity":1,"diffuse":[1,1,1],"specular":[1,1,1],"radius":0.1}]
+}

@@ -5,7 +5,6 @@ class Combat
 
     estPret;
     combatEnCours;
-    ennemi;
     pointDeVie;
 
     zoneValide;
@@ -24,7 +23,6 @@ class Combat
     {
         this.estPret = false;
         this.pointDeVie = HEROS.getPointDeVieMax();
-        this.ennemi = null;
         this.combatEnCours = false;
 
         this.scene = new BABYLON.Scene(ENGINE);
@@ -277,14 +275,7 @@ class Combat
         this.combatEnCours = false;
         this.UI.montrerBoutonPerdre();
     }
-
-
-    setEnnemi(ennemi)
-    {
-        this.ennemi = ennemi;
-    }
-
-    
+  
 
 
     getScene()

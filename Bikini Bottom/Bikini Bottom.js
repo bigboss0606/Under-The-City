@@ -11,7 +11,7 @@ class BikiniBottom
         this.estPret = false;
         this.explorationEnCours = false;
         //this.scene.collisionsEnabled = true;
-        //this.scene.debugLayer.show();
+        this.scene.debugLayer.show();
 
 
         const UI = new BikiniBottomUI();
@@ -21,7 +21,14 @@ class BikiniBottom
 
 
 
-        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-60, 2, 0), this.scene);
+        //const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(-60, 2, 0), this.scene);
+        //camera.attachControl(CANVAS, true);
+
+        var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(0, -5, 0), this.scene);
+        this.scene.activeCamera = camera;
+        camera.lowerRadiusLimit = 2;
+        camera.upperRadiusLimit = 10;
+        camera.wheelDeltaPercentage = 0.01;
         camera.attachControl(CANVAS, true);
 
         /*camera.applyGravity = true;
@@ -31,11 +38,11 @@ class BikiniBottom
         camera.speed = 0.5;
         camera.angularSensibility = 4000;*/
 
-        camera.keysUp.push(87);
+        /*camera.keysUp.push(87);
         camera.keysUp.push(90);
         camera.keysRight.push(68);
         camera.keysDown.push(83);
-        camera.keysLeft.push(81);
+        camera.keysLeft.push(81);*/
 
 
 
@@ -83,6 +90,43 @@ class BikiniBottom
         });
 
         
+
+        // Keyboard events
+        var inputMap = {};
+        this.scene.actionManager = new BABYLON.ActionManager(this.scene);
+        this.scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
+            inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+        }));
+        this.scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
+            inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+        }));
+
+        BABYLON.SceneLoader.ImportMeshAsync("", "", "gorille.babylon", this.scene).then(() => {
+            var hero = this.scene.getMeshByName("Gorille");
+            camera.target = hero;
+            hero.position = new BABYLON.Vector3(0, 1, 0);
+
+            var heroSpeed = 0.5;
+            var heroSpeedBackwards = 0.1;
+            var heroRotationSpeed = 0.2;
+
+            this.scene.onBeforeRenderObservable.add(() => {
+                if (inputMap["z"]) {
+                    hero.moveWithCollisions(hero.forward.scaleInPlace(heroSpeed));
+                }
+                if (inputMap["s"]) {
+                    hero.moveWithCollisions(hero.forward.scaleInPlace(-heroSpeedBackwards));
+                }
+                if (inputMap["q"]) {
+                    hero.rotate(BABYLON.Vector3.Up(), -heroRotationSpeed);
+                }
+                if (inputMap["d"]) {
+                    hero.rotate(BABYLON.Vector3.Up(), heroRotationSpeed);
+                }
+            });
+        });
+
+
         this.scene.onBeforeRenderObservable.add(() => {
             if(this.estPret && this.explorationEnCours)
             {
