@@ -10,6 +10,7 @@ class Menu
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.createDefaultCameraOrLight(true, true, true);
         //this.scene.debugLayer.show();
+        this.musique = null;
         this.createUI();
     }
 
@@ -22,6 +23,8 @@ class Menu
         this.stackPanel.height = "100%";
         this.stackPanel.width = "100%";
         this.stackPanel.background = "#00FF00";
+        this.advancedTexture.addControl(this.stackPanel);
+
 
         let titre = new BABYLON.GUI.TextBlock();
         titre.width = "800px";
@@ -89,16 +92,18 @@ class Menu
     }
 
 
-    cacherUI()
+    lancer()
     {
-        this.advancedTexture.removeControl(this.stackPanel);
-        //this.stackPanel.dispose();
+        this.musique = new BABYLON.Sound("music", "musique/relaxing.mp3", this.scene, null, { loop: true, autoplay: true });
+        this.scene.attachControl();
     }
 
-    montrerUI()
+    quitter()
     {
-        this.advancedTexture.addControl(this.stackPanel);
+        this.musique.dispose();
+        this.scene.detachControl();
     }
+
 
 
     getScene()

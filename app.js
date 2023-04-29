@@ -2,54 +2,50 @@ let CANVAS = document.getElementById("renderCanvas");
 let ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
 
 let HEROS = new Heros();
+let ENNEMI = null;
 
 let MENU = new Menu();
 let BIKINIBOTTOM = new BikiniBottom();
 let COMBAT = new Combat();
-
 let SCENETORENDER = null;
 
-let MUSIQUE = new Musique();
 
-
-
-function quitterMenu()
-{
-    MENU.cacherUI();
-}
 
 function allerAuMenu()
 {
-    MENU.montrerUI();
-    MUSIQUE.lanceLaMusique("relaxing.mp3", MENU.getScene());
+    MENU.lancer();
     SCENETORENDER = MENU.getScene();
 }
 
-
-function quitterBikiniBottom()
+function quitterMenu()
 {
-    BIKINIBOTTOM.explorationEnCours = false;
+    MENU.quitter();
 }
+
 
 function allerABikiniBottom()
 {
-    MUSIQUE.lanceLaMusique("whopper-whopper.mp3", BIKINIBOTTOM.getScene());
     BIKINIBOTTOM.lancer();
     SCENETORENDER = BIKINIBOTTOM.getScene();
 }
 
-
-function quitterCombat()
+function quitterBikiniBottom()
 {
-
+    BIKINIBOTTOM.quitter();
 }
 
-function allerAuCombat(ennemi)
+
+function allerAuCombat()
 {
-    MUSIQUE.lanceLaMusique("coniferous-forest.mp3", COMBAT.getScene());
     COMBAT.lancer();
     SCENETORENDER = COMBAT.getScene();
 }
+
+function quitterCombat()
+{
+    COMBAT.quitter();
+}
+
 
 
 allerAuMenu();

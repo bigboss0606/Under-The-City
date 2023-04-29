@@ -1,32 +1,32 @@
 class Note
 {
     mesh;
-    positionX;
-    positionY;
-    positionZ;
+    estRate;
 
-    constructor(ligne, mat, scene)
+    constructor(ligne, mesh)
     {        
-        this.lignes = [0.84, 0.42, 0, -0.42, -0.84];
-        this.couleurs = [(1, 0, 0), (1, 1, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)];
+        //this.lignes = [0.84, 0.42, 0, -0.42, -0.84];
+        
+        this.mesh = mesh;
 
         this.ligne = ligne;
-        this.positionX = this.lignes[this.ligne];
-        this.positionY = 1.8;
-        this.positionZ = -1;
-
-        this.mesh = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter:0.3}, scene);
-        this.mesh.position = new BABYLON.Vector3(this.positionX, this.positionY, this.positionZ);
-        this.mesh.scaling = new BABYLON.Vector3(1, 0.5, 2);
-        
-        this.mesh.material = mat;
+        this.mesh.position.x *= -1;
+        this.estRate = false;
     }
 
     avancer()
     {
-        
-        this.positionZ += 0.1;//6 * Math.round(engine.getDeltaTime()) / 1000;
-        this.mesh.position = new BABYLON.Vector3(this.positionX, this.positionY, this.positionZ);
+        this.mesh.position.z += 0.1;
+    }
+
+    setEstRateTrue()
+    {
+        this.estRate = true;
+    }
+
+    getEstRate()
+    {
+        return this.estRate;
     }
 
     getMesh()

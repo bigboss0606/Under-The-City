@@ -54,6 +54,11 @@ class Ennemi
         );
     }
 
+    getMesh()
+    {
+        return this.mesh;
+    }
+    
     detruire()
     {
         this.estVivant = false;
