@@ -22,7 +22,7 @@ class Menu
         this.stackPanel = new BABYLON.GUI.StackPanel();
         this.stackPanel.height = "100%";
         this.stackPanel.width = "100%";
-        this.stackPanel.background = "#00FF00";
+        this.stackPanel.background = "#00CED1";
         this.advancedTexture.addControl(this.stackPanel);
 
 
@@ -65,21 +65,6 @@ class Menu
         espace.width = "800px";
         espace.height = "40px";
         this.stackPanel.addControl(espace);  
-
-
-        let buttonCombat = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 2 : Burger War");
-        buttonCombat.width = "200px";
-        buttonCombat.height = "100px";
-        buttonCombat.background = "#FF0000";
-        buttonCombat.cornerRadius = 30;
-        buttonCombat.fontSize = 30;
-        buttonCombat.color = "white";
-        this.stackPanel.addControl(buttonCombat);
-
-        buttonCombat.onPointerClickObservable.add(() => {
-            quitterMenu();
-            allerAuCombat();
-        });
 
         
         let textRemerciements = new BABYLON.GUI.TextBlock();

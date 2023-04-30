@@ -9,7 +9,6 @@ class Combat
     zoneValide;
 
     notes;
-    duree;
     temps;
     notesCrees;
     aAppuye;
@@ -19,7 +18,6 @@ class Combat
     constructor()
     {
         this.estPret = false;
-        this.pointDeVie = HEROS.getPointDeVieMax();
 
         this.scene = new BABYLON.Scene(ENGINE);
         //this.scene.debugLayer.show();
@@ -29,16 +27,9 @@ class Combat
         this.UI = new CombatUI();
 
         
-        this.zoneValide = null;
-        this.zoneDestruction = null;
-        this.zoneNoteRate = null;
         this.importerDecor();
     
 
-        this.notes = [[120, 0], [180, 1], [240, 2], [300, 3], [360, 4], [420, 4],  [480, 3], [540, 2], [600, 1], [660, 0]];
-        this.duree = 600;
-        this.temps = 0;
-    
         this.notesCrees = [];
         this.aAppuye = false;
 
@@ -213,8 +204,10 @@ class Combat
         this.notesCrees = [];
         this.temps = 0;
 
+        this.notes = getEnnemi().getNotes();
+
         this.UI.setTextScore("Bonne chance !");
-        this.pointDeVie = HEROS.getPointDeVieMax();
+        this.pointDeVie = getHeros().getPointDeVieMax();
         this.UI.setTextVie("PV : " + this.pointDeVie);
 
         this.UI.montrerBoutonLancer();
@@ -296,7 +289,8 @@ class Combat
     {
         this.scene.onBeforeRenderObservable.remove(this.boucleJeu);
         this.scene.onKeyboardObservable.remove(this.testerInputs);
-        HEROS.gagnerExperience(10);
+        getHeros().gagnerExperience(10);
+        supprimerEnnemi();
         this.UI.montrerBoutonGagner();
     }
 

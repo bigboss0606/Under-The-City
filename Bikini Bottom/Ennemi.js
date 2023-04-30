@@ -4,12 +4,13 @@ class Ennemi
     chemin;
     temps;
     p;
-    scene;
     estVivant;
     experience;
 
+    notes;
 
-    constructor(mesh, position, rotation, chemin, vitesse, scene)
+
+    constructor(mesh, position, rotation, chemin, vitesse, notes)
     {
         this.chemin = chemin;
         this.mesh = mesh;
@@ -18,12 +19,9 @@ class Ennemi
         this.temps = 0;
         this.p = 0;
         this.vitesse = vitesse;
-        this.scene = scene;
         this.estVivant = true;
         this.experience = 10;
-
-
-        this.mesh.actionManager = new BABYLON.ActionManager(this.scene);
+        this.notes = notes;
     }
 
     avancer()
@@ -47,18 +45,16 @@ class Ennemi
         }
     }
 
-    setOnClick(func)
-    {
-        this.mesh.actionManager.registerAction(
-            new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, func)
-        );
-    }
-
     getMesh()
     {
         return this.mesh;
     }
     
+    getNotes()
+    {
+        return this.notes;
+    }
+
     detruire()
     {
         this.estVivant = false;
