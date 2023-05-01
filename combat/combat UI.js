@@ -129,7 +129,7 @@ class CombatUI
     {
         this.panneauGagner = new BABYLON.GUI.StackPanel();
         this.panneauGagner.width = "30%";
-        this.panneauGagner.height = "30%";
+        this.panneauGagner.height = "40%";
         this.panneauGagner.background = "#1388AF";
         this.panneauGagner.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         this.panneauGagner.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
@@ -141,6 +141,14 @@ class CombatUI
         texteGagner.color = "white";
         texteGagner.fontSize = 30;
         this.panneauGagner.addControl(texteGagner);
+
+        this.texteXP = new BABYLON.GUI.TextBlock();
+        this.texteXP.width = "220px";
+        this.texteXP.height = "80px";
+        this.texteXP.text = "Bien joué";
+        this.texteXP.color = "white";
+        this.texteXP.fontSize = 20;
+        this.panneauGagner.addControl(this.texteXP);
 
         this.buttonGagner = BABYLON.GUI.Button.CreateSimpleButton("but", "Retour à l'exploration");
         this.buttonGagner.width = "200px";
@@ -162,6 +170,10 @@ class CombatUI
         this.advancedTexture.removeControl(this.panneauGagner);
     }
 
+    setTexteExperience(texte)
+    {
+        this.texteXP.text = texte;
+    }
 
     creerBoutonPerdre()
     {

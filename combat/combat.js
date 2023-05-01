@@ -9,11 +9,9 @@ class Combat
     zoneValide;
 
     notes;
-    temps;
     notesCrees;
     aAppuye;
 
-    //Quand le bouton play est afficher, le temps augmente
 
     constructor()
     {
@@ -69,13 +67,13 @@ class Combat
         this.UI.buttonLancer.onPointerClickObservable.add(() => {
             if(this.estPret)
             {
+                this.tempsDebut = Date.now();
                 this.boucleJeu = this.scene.onBeforeRenderObservable.add(() => {
                     this.creerNotes();
                     this.avancerNotes();
                     this.testerNotes();
                     this.supprimernotes();
                     this.verifierSiGagner();
-                    this.temps++;
                 });
 
                 this.testerInputs = this.scene.onKeyboardObservable.add((kbInfo) => {
@@ -202,12 +200,13 @@ class Combat
             note.detruire();
         }
         this.notesCrees = [];
-        this.temps = 0;
 
-        this.notes = getEnnemi().getNotes();
+        this.notes = ENNEMI.getNotes();
+        this.longueur = this.notes[this.notes.length - 1][0] + 2000;
+        this.indexNoteCree = 0;
 
         this.UI.setTextScore("Bonne chance !");
-        this.pointDeVie = getHeros().getPointDeVieMax();
+        this.pointDeVie = HEROS.getPointDeVieMax();
         this.UI.setTextVie("PV : " + this.pointDeVie);
 
         this.UI.montrerBoutonLancer();
@@ -222,12 +221,11 @@ class Combat
 
     creerNotes()
     {
-        for (let couple of this.notes)
+        let noteActuelle = this.notes[this.indexNoteCree];
+        if (this.indexNoteCree < this.notes.length && Date.now() - this.tempsDebut >= noteActuelle[0])
         {
-            if(couple[0] === this.temps)
-            {
-                this.notesCrees.push(new Note(couple[1], this.notesMesh[couple[1]].createInstance("note")));
-            }
+            this.notesCrees.push(new Note(noteActuelle[1], this.notesMesh[noteActuelle[1]].createInstance("note")));
+            this.indexNoteCree++;
         }
     }
 
@@ -268,7 +266,7 @@ class Combat
 
     verifierSiGagner()
     {
-        if(this.temps >= 840)
+        if(Date.now() - this.tempsDebut >= this.longueur)
         {
             this.gagner();
         }
@@ -289,7 +287,10 @@ class Combat
     {
         this.scene.onBeforeRenderObservable.remove(this.boucleJeu);
         this.scene.onKeyboardObservable.remove(this.testerInputs);
-        getHeros().gagnerExperience(10);
+
+        let texte = HEROS.gagnerExperience(10);
+        this.UI.setTexteExperience(texte)
+
         supprimerEnnemi();
         this.UI.montrerBoutonGagner();
     }

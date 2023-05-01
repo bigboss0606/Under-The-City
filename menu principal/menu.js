@@ -45,7 +45,7 @@ class Menu
         this.stackPanel.addControl(text);  
 
 
-        let buttonResto = BABYLON.GUI.Button.CreateSimpleButton("but", "Niveau 1 : Opertura");
+        let buttonResto = BABYLON.GUI.Button.CreateSimpleButton("but", "Nouvelle partie");
         buttonResto.width = "200px";
         buttonResto.height = "100px";
         buttonResto.background = "#FF0000";
@@ -79,13 +79,13 @@ class Menu
 
     lancer()
     {
-        this.musique = new BABYLON.Sound("music", "musique/relaxing.mp3", this.scene, null, { loop: true, autoplay: true });
+        //this.musique = new BABYLON.Sound("music", "musique/relaxing.mp3", this.scene, null, { loop: true, autoplay: true });
         this.scene.attachControl();
     }
 
     quitter()
     {
-        this.musique.dispose();
+        //this.musique.dispose();
         this.scene.detachControl();
     }
 

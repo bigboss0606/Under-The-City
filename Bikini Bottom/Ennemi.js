@@ -28,7 +28,7 @@ class Ennemi
     {
         if (this.estVivant)
         {
-            this.mesh.moveWithCollisions(this.mesh.forward.scaleInPlace(this.vitesse));
+            this.mesh.moveWithCollisions(this.mesh.forward.scaleInPlace(this.vitesse * ENGINE.getDeltaTime() / 1000));
             this.temps++;
 
             if (this.temps == this.chemin[this.p][0])

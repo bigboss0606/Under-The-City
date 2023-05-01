@@ -2,6 +2,7 @@ class Note
 {
     mesh;
     estRate;
+    estCree;
 
     constructor(ligne, mesh)
     {        
@@ -12,11 +13,12 @@ class Note
         this.ligne = ligne;
         this.mesh.position.x *= -1;
         this.estRate = false;
+        this.estCree = false;
     }
 
     avancer()
     {
-        this.mesh.position.z += 0.1;
+        this.mesh.position.z += 6 * ENGINE.getDeltaTime() / 1000; //0.1;
     }
 
     setEstRateTrue()

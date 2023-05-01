@@ -4,30 +4,8 @@ let ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, ste
 
 
 let HEROS = new Heros();
-function getHeros()
-{
-    return HEROS;
-}
-
 let ENNEMIS = [];
-function setEnnemis(ennemis)
-{
-    ENNEMIS = ennemis;
-}
-function getEnnemis()
-{
-    return ENNEMIS;
-}
-
 let ENNEMI = null;
-function setEnnemi(ennemi)
-{
-    ENNEMI = ennemi;
-}
-function getEnnemi()
-{
-    return ENNEMI;
-}
 function supprimerEnnemi()
 {
     ENNEMI.detruire();
