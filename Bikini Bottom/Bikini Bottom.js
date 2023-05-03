@@ -10,9 +10,9 @@ class BikiniBottom
         //this.scene.debugLayer.show();
 
 
-        const UI = new BikiniBottomUI();
+        this.UI = new BikiniBottomUI();
         this.scene.onBeforeRenderObservable.add(() => {
-            UI.setTextFPS(Math.round(ENGINE.getFps()));  
+            this.UI.setTextFPS(Math.round(ENGINE.getFps()));  
         });
 
         this.camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(-67, 3, 0), this.scene);
@@ -60,6 +60,19 @@ class BikiniBottom
                         case BABYLON.KeyboardEventTypes.KEYUP:
                             this.inputMap[kbInfo.event.key] = false;      
                             break;
+                    }
+                }
+            });
+
+            this.scene.onBeforeRenderObservable.add(() => {
+                if(ESTSURTELEPHONE && this.explorationEnCours)
+                {
+                    if(this.UI.getJoystick().pressed){
+                        let move = this.UI.getJoystick().deltaPosition.y * (ENGINE.getDeltaTime()/1000) * 3;
+                        let rot = this.UI.getJoystick().deltaPosition.x * (ENGINE.getDeltaTime()/1000);
+                        
+                        this.heroMesh.moveWithCollisions(this.heroMesh.forward.scaleInPlace(move));
+                        this.heroMesh.rotate(BABYLON.Vector3.Up(), rot);
                     }
                 }
             });
@@ -133,11 +146,21 @@ class BikiniBottom
         this.scene.attachControl();
         this.inputMap = {};
         this.explorationEnCours = true;
+
+        if (ESTSURTELEPHONE)
+        {
+            this.UI.montrerJoystick();
+        }
+        else
+        {
+            this.UI.cacherJoystick();
+        }
     }   
 
     quitter()
     {
         this.musique.dispose();
+        this.UI.cacherJoystick();
         this.scene.detachControl();
         this.explorationEnCours = false;
     }

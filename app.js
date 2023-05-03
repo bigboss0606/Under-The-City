@@ -1,6 +1,6 @@
 let CANVAS = document.getElementById("renderCanvas");
 let ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
-
+let ESTSURTELEPHONE = false;
 
 
 let HEROS = new Heros();
@@ -38,6 +38,7 @@ function quitterBikiniBottom()
 {
     BIKINIBOTTOM.quitter();
 }
+
 
 let COMBAT = new Combat();
 function allerAuCombat()

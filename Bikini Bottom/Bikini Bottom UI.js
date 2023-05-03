@@ -11,6 +11,7 @@ class BikiniBottomUI
 
         this.createTextScore();
         this.createTextFPS();
+        this.createJoystick();
     }
 
 
@@ -60,5 +61,27 @@ class BikiniBottomUI
     setTextFPS(text)
     {
         this.textFPS.text = text;
+    }
+
+
+    createJoystick()
+    {
+        this.joystick = new BABYLON.VirtualJoystick(true);
+        BABYLON.VirtualJoystick.Canvas.style.zIndex = "-1";
+    }
+
+    montrerJoystick()
+    {
+        BABYLON.VirtualJoystick.Canvas.style.zIndex = "4";
+    }
+
+    cacherJoystick()
+    {
+        BABYLON.VirtualJoystick.Canvas.style.zIndex = "-1";
+    }
+
+    getJoystick()
+    {
+        return this.joystick;
     }
 }

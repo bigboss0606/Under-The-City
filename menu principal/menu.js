@@ -66,6 +66,30 @@ class Menu
         espace.height = "40px";
         this.stackPanel.addControl(espace);  
 
+
+        let buttonMobile = BABYLON.GUI.Button.CreateSimpleButton("but", "Passer en mode mobile");
+        buttonMobile.width = "200px";
+        buttonMobile.height = "60px";
+        buttonMobile.background = "#FF0000";
+        buttonMobile.cornerRadius = 30;
+        buttonMobile.fontSize = 20;
+        buttonMobile.color = "white";
+        this.stackPanel.addControl(buttonMobile);
+
+
+        buttonMobile.onPointerClickObservable.add(() => {
+            if (ESTSURTELEPHONE)
+            {
+                ESTSURTELEPHONE = false;
+                buttonMobile.textBlock.text = "Passer en mode mobile";
+            }
+            else
+            {
+                ESTSURTELEPHONE = true;
+                buttonMobile.textBlock.text = "Enlever le joystick";
+            }
+        });
+
         
         let textRemerciements = new BABYLON.GUI.TextBlock();
         textRemerciements.width = "800px";
