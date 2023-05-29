@@ -1,66 +1,66 @@
 let CANVAS = document.getElementById("renderCanvas");
 let ENGINE = new BABYLON.Engine(CANVAS, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false});
-let ESTSURTELEPHONE = false;
+
+let menuPrincipal = new MenuPrincipal();
+let maison = new Maison();
+let guitarHero = new GuitarHero();
+let pendu = new Pendu();
+let burgerWar = new BurgerWar();
+let spongebobRace = new SpongebobRace();
+let jeuActif = null;
 
 
-let HEROS = new Heros();
-let ENNEMIS = [];
-let ENNEMI = null;
-function supprimerEnnemi()
+function aller(dest)
 {
-    ENNEMI.detruire();
-    const index = ENNEMIS.indexOf(ENNEMI);
-    ENNEMIS.splice(index, 1);
+    jeuActif.arreter();
+
+    switch(dest)
+    {
+        case "menu principal":
+            jeuActif = menuPrincipal;
+            break;
+
+        case "maison":
+            jeuActif = maison;
+            break;
+        
+        case "guitar hero":
+            jeuActif = guitarHero;
+            break;
+    
+        case "pendu":
+            jeuActif = pendu;
+            break;
+
+        case "burger war":
+            jeuActif = burgerWar;
+            break;
+
+        case "spongebob race":
+            jeuActif = spongebobRace;
+            break;
+
+        default:
+            throw new Error("destination inconnue");
+            break;
+    }
+    jeuActif.lancer();
 }
 
 
-
-let SCENETORENDER = null;
-
-let MENU = new Menu();
-function allerAuMenu()
+function joueurAGagne()
 {
-    MENU.lancer();
-    SCENETORENDER = MENU.getScene();
-}
-function quitterMenu()
-{
-    MENU.quitter();
+    maison.gagner();
 }
 
-let BIKINIBOTTOM = new BikiniBottom();
-function allerABikiniBottom()
+function joueurAPerdu()
 {
-    BIKINIBOTTOM.lancer();
-    SCENETORENDER = BIKINIBOTTOM.getScene();
-}
-function quitterBikiniBottom()
-{
-    BIKINIBOTTOM.quitter();
+    maison.perdre();
 }
 
 
-let COMBAT = new Combat();
-function allerAuCombat()
-{
-    COMBAT.lancer();
-    SCENETORENDER = COMBAT.getScene();
-}
-function quitterCombat()
-{
-    COMBAT.quitter();
-}
+jeuActif = menuPrincipal;
+jeuActif.lancer();
 
-
-
-allerAuMenu();
-ENGINE.runRenderLoop(function () {
-    SCENETORENDER.render();
-});
-
-
-
-// Resize
-window.addEventListener("resize", function () {
-    ENGINE.resize();
-});
+ENGINE.runRenderLoop(() => {jeuActif.getScene().render()});
+window.addEventListener("resize", () => {ENGINE.resize()});
