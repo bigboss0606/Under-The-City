@@ -17,11 +17,11 @@ class PenduUI
     createPendu()
     {
         this.grid = new BABYLON.GUI.Grid();
-        this.grid.addColumnDefinition(100, true);
-        this.grid.addColumnDefinition(0.3);
-        this.grid.addColumnDefinition(0.4);
-        this.grid.addColumnDefinition(0.3);
-        this.grid.addColumnDefinition(100, true);
+        this.grid.addColumnDefinition(0.05);
+        this.grid.addColumnDefinition(0.2);
+        this.grid.addColumnDefinition(0.35);
+        this.grid.addColumnDefinition(0.35);
+        this.grid.addColumnDefinition(0.05);
         this.grid.addRowDefinition(1);
         this.advancedTexture.addControl(this.grid);
 
@@ -49,7 +49,7 @@ class PenduUI
         this.texteErreurs.height = "80px";
         this.texteErreurs.text = "10";
         this.texteErreurs.color = "white";
-        this.texteErreurs.fontSize = 50;
+        this.texteErreurs.fontSize = 30;
         gauche.addControl(this.texteErreurs);
 
 
@@ -62,7 +62,7 @@ class PenduUI
         this.texte.height = "400px";
         this.texte.text = "----------";
         this.texte.color = "white";
-        this.texte.fontSize = 50;
+        this.texte.fontSize = 40;
         milieu.addControl(this.texte);
 
 
@@ -79,7 +79,7 @@ class PenduUI
         for (let lettre of ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p"])
         {
             let bouton = BABYLON.GUI.Button.CreateSimpleButton("but", lettre);
-            bouton.width = "50px";
+            bouton.width = "40px";
             bouton.height = "50px";
             bouton.background = "#FF0000";
             bouton.cornerRadius = 5;
@@ -98,7 +98,7 @@ class PenduUI
         for (let lettre of ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m"])
         {
             let bouton = BABYLON.GUI.Button.CreateSimpleButton("but", lettre);
-            bouton.width = "50px";
+            bouton.width = "40px";
             bouton.height = "50px";
             bouton.background = "#FF0000";
             bouton.cornerRadius = 5;
@@ -117,7 +117,7 @@ class PenduUI
         for (let lettre of ["w", "x", "c", "v", "b", "n"])
         {
             let bouton = BABYLON.GUI.Button.CreateSimpleButton("but", lettre);
-            bouton.width = "50px";
+            bouton.width = "40px";
             bouton.height = "50px";
             bouton.background = "#FF0000";
             bouton.cornerRadius = 5;
