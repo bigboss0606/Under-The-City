@@ -9,7 +9,7 @@ class Maison
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.clearColor = new BABYLON.Color3(0, 0.8, 1);
         this.scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
-        //this.scene.debugLayer.show();
+        this.scene.debugLayer.show();
         this.scene.collisionsEnabled = true;
         this.UI = new MaisonUI();
 
@@ -45,7 +45,7 @@ class Maison
             let tente = this.scene.getNodeByName("Tente");
             let chalet = this.scene.getNodeByName("Chalet");
 
-            let cameraChalet = new BABYLON.ArcRotateCamera("camera chalet", 1.5977, 1.1502, 15, new BABYLON.Vector3(0, 0, 0), this.scene);
+            let cameraChalet = new BABYLON.ArcRotateCamera("camera chalet", 1.5385, 1.1502, 15, new BABYLON.Vector3(0, 0, 0), this.scene);
             this.planDeTravailChalet = new Construction([[tente, [false, true, false]], [chalet, [false, false, true]]], ["Bienvenue, \ntaper les notes au bon moment pour debloquer\n votre habitation : une tente", "Améliorer votre tente en \n un magnifique chalet"], 2, cameraChalet);
             
             let ecranChalet = this.scene.getNodeByName("Ecran chalet");
@@ -68,7 +68,7 @@ class Maison
             let arbreSansCabane = this.scene.getNodeByName("Arbre sans cabane");
             let cabaneDansArbre = this.scene.getNodeByName("Cabane dans arbre");
 
-            let cameraCabane = new BABYLON.ArcRotateCamera("camera cabane", 1.53, 1.44, 18, new BABYLON.Vector3(-15, 3, -18), this.scene);
+            let cameraCabane = new BABYLON.ArcRotateCamera("camera cabane", 1.3, 1.44, 18, new BABYLON.Vector3(-15, 3, -18), this.scene);
             this.planDeTravailCabane = new Construction([[arbreSansCabane, [true, false]], [cabaneDansArbre, [false, true]]], ["Debloquer une cabane \ndans un arbre"], 1, cameraCabane);
             
             let ecranCabane = this.scene.getNodeByName("Ecran cabane");
@@ -93,7 +93,7 @@ class Maison
             let tourniquet = this.scene.getNodeByName("Tourniquet");
             let tyrolienne = this.scene.getNodeByName("Tyrolienne");
             
-            let cameraAirJeu = new BABYLON.ArcRotateCamera("camera air jeu", 3, 1.3, 18, new BABYLON.Vector3(35, 8, 26), this.scene);
+            let cameraAirJeu = new BABYLON.ArcRotateCamera("camera air jeu", 3.4, 1.33, 18, new BABYLON.Vector3(35, 5, 26), this.scene);
             this.planDeTravailAirJeu = new Construction([[balancoire, [false, true, true, true]], [tobogan, [false, false, false, true]], [tourniquet, [false, true, true, true]], [tyrolienne, [false, false, true, true]]], ["Construisez votre parc pour enfants \n un peu comme Disney mais avec que 4 trucs", "Debloquer une affreuse tyrolienne", "Débloquer une super cabane"], 3, cameraAirJeu);
             
             let ecranAirJeu = this.scene.getNodeByName("Ecran air jeu");
@@ -118,7 +118,7 @@ class Maison
             let mouton3 = this.scene.getNodeByName("Mouton 3");
             let mouton4 = this.scene.getNodeByName("Mouton 4");  
                   
-            let cameraEnclos = new BABYLON.ArcRotateCamera("camera enclos", -19, 1.5, 6, new BABYLON.Vector3(-11, 1.5, 11), this.scene);
+            let cameraEnclos = new BABYLON.ArcRotateCamera("camera enclos", 0.65, 1.5, 6, new BABYLON.Vector3(-11, 1.5, 11), this.scene);
             this.planDeTravailEnclos = new Construction([[cage, [false, true, true, true, true, true]], [mouton1, [false, false, true, true, true, true]], [mouton2, [false, false, false, true, true, true]], [mouton3, [false, false, false, false, true, true]], [mouton4, [false, false, false, false, false, true]]], ["Débloquer un enclos pour y\n placer vos animaux", "Mettez y votre premier mouton!\nMaintenant vous aurez beaucoup\n de laines pour faire des vetements", "Il y a beaucoup de place,\n mettez en un autre", "Allez un petit dernier\nComme ça, vous aurez des beaux vêtements", "Fashion Crochet criminels"], 5, cameraEnclos);
             
             let ecranEnclos = this.scene.getNodeByName("Ecran enclos");
