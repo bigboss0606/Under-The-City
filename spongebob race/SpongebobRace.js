@@ -117,12 +117,11 @@ class SpongebobRace
     async importerTout()
     {
         await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "Bikini Bottom.glb", this.scene);
-        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "gorille.babylon", this.scene)
-        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "poisson.babylon", this.scene)
-        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "burger.babylon", this.scene)
+        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "gorille.babylon", this.scene);
+        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "poisson.babylon", this.scene);
+        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "burger.babylon", this.scene);
+        await BABYLON.SceneLoader.ImportMeshAsync("", "models/", "spongebobV11.glb", this.scene)
     }
-
-
 
 
     lancer()

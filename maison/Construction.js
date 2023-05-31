@@ -5,7 +5,7 @@ class Construction
     etatMax;
 
 
-    constructor(listeBatiment, descriptions, etatMax)
+    constructor(listeBatiment, descriptions, etatMax, camera)
     {
         this.etat = 0;
         this.listeBatiment = listeBatiment;
@@ -13,6 +13,7 @@ class Construction
         this.etatMax = etatMax;     
         this.montrerLesBatiments();
 
+        this.camera = camera;
     }
 
 
@@ -52,5 +53,11 @@ class Construction
             }
 
         }
+    }
+
+
+    getCamera()
+    {
+        return this.camera;
     }
 }
