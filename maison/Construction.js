@@ -25,7 +25,7 @@ class Construction
         }
         else
         {
-            return "Vous avez complété \n cette merde";
+            return "Vous avez complété \n cette construction";
         }
     }
 

@@ -30,7 +30,7 @@ class BurgerWarUI
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
-        textAide.text = "Bienvenue dans Burger War\n\nDans ce mini jeu, vous devrez\n creer le meilleur burger possible!\n\nPour cela, utilisez les boutons à droite\npour faire apparaître les ingrédients\n\nQuand votre burger vous semble parfait,\n vous pouvez valider et recevoir une note";
+        textAide.text = "Bienvenue dans Burger War\n\nDans ce mini jeu, vous devrez creer le meilleur burger possible!\n\nPour cela, utilisez les boutons à droite pour faire apparaître les ingrédients\n\nQuand votre burger vous semble parfait,\n vous pouvez valider et recevoir une note";
         textAide.color = "white";
         textAide.fontSize = 25;
         this.panneauAide.addControl(textAide);  

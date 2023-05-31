@@ -183,7 +183,7 @@ class PenduUI
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
-        textAide.text = "Bienvenue dans Pendu\n\nDans ce mini jeu, vous devrez\n faire un pendu comme d'hab!\n\nVous pouvez utiliser les boutons\nou le clavier\n\nC'est un ptn de pendu\nt'as vraiment besoin d'aides???";
+        textAide.text = "Bienvenue dans Pendu\n\nDans ce mini jeu, vous devrez faire un pendu comme d'hab!\n\nVous pouvez utiliser les boutons ou le clavier";
         textAide.color = "white";
         textAide.fontSize = 25;
         this.panneauAide.addControl(textAide);  

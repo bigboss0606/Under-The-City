@@ -122,7 +122,7 @@ class GuitarHeroUI
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
-        textAide.text = "Bienvenue dans Guitar Hero\n\nDans ce mini jeu, vous devrez taper\nles notes quand elles atteignent la ligne\n\nRouge = x\nBleu = c\nVert = v\nJaune = b\nCyan = n";
+        textAide.text = "Bienvenue dans Guitar Hero Lowcost\n\nDans ce mini jeu, vous devrez taper\nles notes quand elles atteignent la ligne\n\nRouge = x\nBleu = c\nVert = v\nJaune = b\nCyan = n";
         textAide.color = "white";
         textAide.fontSize = 25;
         this.panneauAide.addControl(textAide);  

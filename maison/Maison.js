@@ -46,7 +46,7 @@ class Maison
             let chalet = this.scene.getNodeByName("Chalet");
 
             let cameraChalet = new BABYLON.ArcRotateCamera("camera chalet", 1.5977, 1.1502, 15, new BABYLON.Vector3(0, 0, 0), this.scene);
-            this.planDeTravailChalet = new Construction([[tente, [false, true, false]], [chalet, [false, false, true]]], ["Bienvenue, \ntaper les notes au bon moment pour debloquer\n votre premiere merde : une tente", "Debloquer votre chalet \nconnard"], 2, cameraChalet);
+            this.planDeTravailChalet = new Construction([[tente, [false, true, false]], [chalet, [false, false, true]]], ["Bienvenue, \ntaper les notes au bon moment pour debloquer\n votre habitation : une tente", "Améliorer votre tente en \n un magnifique chalet"], 2, cameraChalet);
             
             let ecranChalet = this.scene.getNodeByName("Ecran chalet");
             let advancedTextureChalet = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(ecranChalet);
@@ -94,7 +94,7 @@ class Maison
             let tyrolienne = this.scene.getNodeByName("Tyrolienne");
             
             let cameraAirJeu = new BABYLON.ArcRotateCamera("camera air jeu", 3, 1.3, 18, new BABYLON.Vector3(35, 8, 26), this.scene);
-            this.planDeTravailAirJeu = new Construction([[balancoire, [false, true, true, true]], [tobogan, [false, false, false, true]], [tourniquet, [false, true, true, true]], [tyrolienne, [false, false, true, true]]], ["debloquer un truc", "debloquer un autre truc", "debloquer un autre autre truc"], 3, cameraAirJeu);
+            this.planDeTravailAirJeu = new Construction([[balancoire, [false, true, true, true]], [tobogan, [false, false, false, true]], [tourniquet, [false, true, true, true]], [tyrolienne, [false, false, true, true]]], ["Construisez votre parc pour enfants \n un peu comme Disney mais avec que 4 trucs", "Debloquer une affreuse tyrolienne", "Débloquer une super cabane"], 3, cameraAirJeu);
             
             let ecranAirJeu = this.scene.getNodeByName("Ecran air jeu");
             let advancedTextureAirJeu = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(ecranAirJeu);
@@ -119,7 +119,7 @@ class Maison
             let mouton4 = this.scene.getNodeByName("Mouton 4");  
                   
             let cameraEnclos = new BABYLON.ArcRotateCamera("camera enclos", -19, 1.5, 6, new BABYLON.Vector3(-11, 1.5, 11), this.scene);
-            this.planDeTravailEnclos = new Construction([[cage, [false, true, true, true, true, true]], [mouton1, [false, false, true, true, true, true]], [mouton2, [false, false, false, true, true, true]], [mouton3, [false, false, false, false, true, true]], [mouton4, [false, false, false, false, false, true]]], ["Débloquer un enclos pour y\n placer vos animaux", "Mettez y votre premier mouton! \n", "Maintenant vous aurez beaucoup\n de laines pour faire des vetements", "Il reste de la place\nRajoutez un autre mouton", "Fashion Crochet criminels"], 5, cameraEnclos);
+            this.planDeTravailEnclos = new Construction([[cage, [false, true, true, true, true, true]], [mouton1, [false, false, true, true, true, true]], [mouton2, [false, false, false, true, true, true]], [mouton3, [false, false, false, false, true, true]], [mouton4, [false, false, false, false, false, true]]], ["Débloquer un enclos pour y\n placer vos animaux", "Mettez y votre premier mouton!\nMaintenant vous aurez beaucoup\n de laines pour faire des vetements", "Il y a beaucoup de place,\n mettez en un autre", "Allez un petit dernier\nComme ça, vous aurez des beaux vêtements", "Fashion Crochet criminels"], 5, cameraEnclos);
             
             let ecranEnclos = this.scene.getNodeByName("Ecran enclos");
             let advancedTextureEnclos = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(ecranEnclos);

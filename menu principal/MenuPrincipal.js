@@ -59,7 +59,7 @@ class MenuPrincipal
 
 
         let textRemerciements = new BABYLON.GUI.TextBlock();
-        textRemerciements.text = "Un projet du grand rob1\nD'après une idée du magnifique rob1\nDes modèles époustouflants du prodigieux rob1 (sauf le mouton honteusement volé à Fashion Crochet)\nMusique de la pub Burger King ou volées au génial Pleasantries (check Youtube ce sont des monstres)\nRéalisé par l'incroyable rob1";
+        textRemerciements.text = "Un projet du grand rob1\nD'après une idée du magnifique rob1\nDes modèles époustouflants du prodigieux rob1 (sauf le mouton honteusement volé à Fashion Crochet)\nMusique volée au génial Pleasantries (check Youtube c'est un monstre)\nRéalisé par l'incroyable rob1";
         textRemerciements.color = "white";
         textRemerciements.fontSize = 18;
         grid.addControl(textRemerciements, 3, 0);

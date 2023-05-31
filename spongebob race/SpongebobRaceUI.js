@@ -26,7 +26,7 @@ class SpongebobRaceUI
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
-        textAide.text = "Bienvenue dans Spongebob Race\n\nDans ce mini jeu, vous devez\ntoucher le poisson!\n\nOui, c'est à chier, je vais surement l'améliorer\n\nVous devez éviter les burgers\nparce que c'est pas green\n\nLe poisson est dans le Krousti Krabs (le resto de Mr Krabs)\nau bout de la route";
+        textAide.text = "Bienvenue dans Spongebob Race\n\nDans ce mini jeu, vous devez trouver et toucher le poisson!\n\nOui, c'est nul, je vais surement l'améliorer\n\nVous devez éviter les burgers parce que c'est pas green\n\nLe poisson est dans le Krousti Krabs (le resto de Mr Krabs)\nau bout de la route";
         textAide.color = "white";
         textAide.fontSize = 25;
         this.panneauAide.addControl(textAide);  

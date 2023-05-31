@@ -7,7 +7,7 @@ class Pendu
         this.camera = new BABYLON.ArcRotateCamera("camera", 4, 1.268, 40, new BABYLON.Vector3(0, 0, -10), this.scene);
         this.scene.registerBeforeRender(() => {
 
-            let vitesse = 0.5;
+            let vitesse = 0.3;
             let rot = vitesse*ENGINE.getDeltaTime()/1000;
             this.camera.alpha += rot;//.rotate(this.pivotPourTournerAutourObjet, rot, BABYLON.Space.LOCAL);
         });
