@@ -31,7 +31,7 @@ class GuitarHeroUI
         this.texteVie.color = "white";
         this.texteVie.fontSize = 30;
 
-        textBox.addControl(this.text);  
+        textBox.addControl(this.texteVie);  
         this.advancedTexture.addControl(textBox);
     }
 
