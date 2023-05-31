@@ -17,19 +17,23 @@ class SpongebobRaceUI
 
     createMenuAide()
     {
-        this.panneauAide = new BABYLON.GUI.StackPanel("textBox");
+        this.panneauAide = new BABYLON.GUI.Grid();
         this.panneauAide.height = 0.7;
         this.panneauAide.width = 0.6;
         this.panneauAide.background = "#1388AF";
         this.panneauAide.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         this.panneauAide.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        this.panneauAide.addRowDefinition(0.9);
+        this.panneauAide.addRowDefinition(100, true);
+        this.panneauAide.addRowDefinition(0.1);
+        this.panneauAide.addColumnDefinition(1);
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
         textAide.text = "Bienvenue dans Spongebob Race\n\nDans ce mini jeu, vous devez trouver et toucher le poisson!\n\nOui, c'est nul, je vais surement l'améliorer\n\nVous devez éviter les burgers parce que c'est pas green\n\nLe poisson est dans le Krousti Krabs (le resto de Mr Krabs)\nau bout de la route";
         textAide.color = "white";
         textAide.fontSize = 25;
-        this.panneauAide.addControl(textAide);  
+        this.panneauAide.addControl(textAide, 0, 0);  
 
         let boutonAide = BABYLON.GUI.Button.CreateSimpleButton("but", "Let's go");
         boutonAide.width = "300px";
@@ -41,7 +45,7 @@ class SpongebobRaceUI
         boutonAide.onPointerClickObservable.add(() => {
             this.cacherMenuAide();
         });
-        this.panneauAide.addControl(boutonAide);
+        this.panneauAide.addControl(boutonAide, 1, 0);
     }
     montrerMenuAide()
     {

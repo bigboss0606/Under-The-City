@@ -187,12 +187,20 @@ class Maison
     {
         this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
-        this.panneau = new BABYLON.GUI.StackPanel();
+        this.panneau = new BABYLON.GUI.Grid();
+        this.panneau.addRowDefinition(0.8);
+        this.panneau.addRowDefinition(100, true);
+        this.panneau.addRowDefinition(0.1);
+        this.panneau.addRowDefinition(100, true);
+        this.panneau.addRowDefinition(0.1);
+        this.panneau.addColumnDefinition(1);
+
         this.panneau.width = "80%";
         this.panneau.height = "80%";
         this.panneau.background = "#1388AF";
         this.panneau.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         this.panneau.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+
         
         this.texte = new BABYLON.GUI.TextBlock();
         this.texte.width = "800px";
@@ -200,7 +208,7 @@ class Maison
         this.texte.text = "truc";
         this.texte.color = "white";
         this.texte.fontSize = 30;
-        this.panneau.addControl(this.texte);
+        this.panneau.addControl(this.texte, 0, 0);
 
         this.boutonRetour = BABYLON.GUI.Button.CreateSimpleButton("but", "Retour");
         this.boutonRetour.width = "200px";
@@ -212,12 +220,7 @@ class Maison
         this.boutonRetour.onPointerUpObservable.add(() => {
             this.cacherUI();
         });
-        this.panneau.addControl(this.boutonRetour);
-
-        let espace = new BABYLON.GUI.TextBlock();
-        espace.width = "800px";
-        espace.height = "50px";
-        this.panneau.addControl(espace);
+        this.panneau.addControl(this.boutonRetour, 1, 0);
 
         this.boutonJouer = BABYLON.GUI.Button.CreateSimpleButton("but", "Jouer");
         this.boutonJouer.width = "200px";
@@ -228,10 +231,9 @@ class Maison
         this.boutonJouer.color = "white";
         this.boutonJouer.onPointerUpObservable.add(() => {
             aller(this.miniJeu);
-            //this.planDeTravailActif.interagir();
             this.cacherUI();
         });
-        this.panneau.addControl(this.boutonJouer);
+        this.panneau.addControl(this.boutonJouer, 3, 0);
     }
 
     montrerUI()

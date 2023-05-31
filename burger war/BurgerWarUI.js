@@ -21,19 +21,23 @@ class BurgerWarUI
 
     createMenuAide()
     {
-        this.panneauAide = new BABYLON.GUI.StackPanel("textBox");
+        this.panneauAide = new BABYLON.GUI.Grid();
         this.panneauAide.height = 0.7;
         this.panneauAide.width = 0.6;
         this.panneauAide.background = "#1388AF";
         this.panneauAide.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         this.panneauAide.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        this.panneauAide.addRowDefinition(0.9);
+        this.panneauAide.addRowDefinition(100, true);
+        this.panneauAide.addRowDefinition(0.1);
+        this.panneauAide.addColumnDefinition(1);
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
         textAide.text = "Bienvenue dans Burger War\n\nDans ce mini jeu, vous devrez creer le meilleur burger possible!\n\nPour cela, utilisez les boutons à droite pour faire apparaître les ingrédients\n\nQuand votre burger vous semble parfait,\n vous pouvez valider et recevoir une note";
         textAide.color = "white";
         textAide.fontSize = 25;
-        this.panneauAide.addControl(textAide);  
+        this.panneauAide.addControl(textAide, 0, 0);  
 
         let boutonAide = BABYLON.GUI.Button.CreateSimpleButton("but", "Let's go");
         boutonAide.width = "300px";
@@ -45,7 +49,7 @@ class BurgerWarUI
         boutonAide.onPointerClickObservable.add(() => {
             this.cacherMenuAide();
         });
-        this.panneauAide.addControl(boutonAide);
+        this.panneauAide.addControl(boutonAide, 1, 0);
     }
     montrerMenuAide()
     {
