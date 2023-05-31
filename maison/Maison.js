@@ -35,6 +35,7 @@ class Maison
 
 
             let limites = this.scene.getNodeByName("Limites");
+            limites.isVisible = false;
             limites.checkCollisions = true;
 
             
