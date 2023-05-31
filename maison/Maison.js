@@ -7,13 +7,15 @@ class Maison
 
 
         this.scene = new BABYLON.Scene(ENGINE);
+        this.scene.clearColor = new BABYLON.Color3(0, 0.8, 1);
         this.scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
         //this.scene.debugLayer.show();
         this.scene.collisionsEnabled = true;
         this.UI = new MaisonUI();
 
         
-        this.camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0.6, 1.6, 6), this.scene);
+        this.camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0.6, 1.4, 8), this.scene);
+        this.camera.target = new BABYLON.Vector3(0.6, 1.3, 7);
         this.camera.attachControl(CANVAS, true);
         this.camera.checkCollisions = true;
         this.camera.applyGravity = true;

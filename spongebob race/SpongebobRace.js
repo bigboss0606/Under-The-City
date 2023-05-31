@@ -5,6 +5,8 @@ class SpongebobRace
         this.enCours = false;
         
         this.scene = new BABYLON.Scene(ENGINE);
+        this.scene.clearColor = new BABYLON.Color3(0.4, 0.6, 1);
+
         this.UI = new SpongebobRaceUI();
 
         this.camera = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 4, 10, new BABYLON.Vector3(-67, 3, 0), this.scene);

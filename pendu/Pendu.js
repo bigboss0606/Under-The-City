@@ -4,6 +4,17 @@ class Pendu
     {
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.createDefaultCameraOrLight(true, true, true);
+        this.camera = new BABYLON.ArcRotateCamera("camera", 4, 1.268, 40, new BABYLON.Vector3(0, 0, -10), this.scene);
+        this.scene.registerBeforeRender(() => {
+
+            let vitesse = 0.5;
+            let rot = vitesse*ENGINE.getDeltaTime()/1000;
+            this.camera.alpha += rot;//.rotate(this.pivotPourTournerAutourObjet, rot, BABYLON.Space.LOCAL);
+        });
+        this.scene.activeCamera = this.camera;
+
+
+        //this.scene.debugLayer.show();
 
         this.mots = ["fashion crochet criminels", "je veux pas mourir", "torture", "assassins", "les moutons ont des droits", "satan a creer le crochet", "lets all love shrek", "zigounette"];
         this.alphabet = ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "w", "x", "c", "v", "b", "n"];
@@ -25,6 +36,8 @@ class Pendu
             }
         });
 
+
+        BABYLON.SceneLoader.ImportMeshAsync("", "models/", "bateau.glb", this.scene);
     }
 
 
