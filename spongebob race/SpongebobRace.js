@@ -126,7 +126,7 @@ class SpongebobRace
 
     lancer()
     {
-        //this.musique = new BABYLON.Sound("musique", "musiques/whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
+        this.musique = new BABYLON.Sound("musique", "musiques/Bob l'éponge.mp3", this.scene, null, { loop: true, autoplay: true });
 
         this.scene.attachControl();
         this.UI.cacherBoutonGagne();
@@ -141,7 +141,7 @@ class SpongebobRace
     arreter()
     {
         this.enCours = false;
-        //this.musique.dispose();
+        this.musique.dispose();
         this.scene.detachControl();
     }
 

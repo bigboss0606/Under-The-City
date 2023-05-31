@@ -11,8 +11,11 @@ class BurgerWar
 
         this.scene = new BABYLON.Scene(ENGINE);
 
-        const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0));
-        camera.setTarget(BABYLON.Vector3.Zero());
+        const camera = new BABYLON.ArcRotateCamera("camera", 4.7, 1.2, 6, new BABYLON.Vector3(-1, 0, 0));
+        camera.lowerBetaLimit = camera.beta;
+        camera.upperBetaLimit = camera.beta;
+        camera.lowerRadiusLimit = camera.radius;
+        camera.upperRadiusLimit = camera.radius;
         camera.attachControl(CANVAS, true);
 
         const  light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -1, 1), this.scene);
@@ -53,18 +56,20 @@ class BurgerWar
             let tab = [assiette, fromage, painDessous, painDessus, salade, sauces, steak, tomate];
             for (let x of tab) 
             {
-                x.scaling.scaleInPlace(50);
+                x.scaling.scaleInPlace(30);
                 x.position = new BABYLON.Vector3(-10, 3, 0);
                 x.isVisible = false;
             }
         });
 
 
+        BABYLON.SceneLoader.ImportMeshAsync("", "models/", "resto.glb", this.scene);
+
 
         // Create ground collider
         var ground = BABYLON.MeshBuilder.CreateGround("ground1", {width:10, height:10, subdivisions:2});
         ground.physicsImpostor = new BABYLON.PhysicsImpostor(ground, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, friction: 0.5, restitution: 0.7 }, this.scene);
-        ground.receiveShadows = true;
+        ground.isVisible = false;
 
 
         this.UI.buttonFromage.onPointerClickObservable.add(() => {this.createObject(fromage, this.scene);});
@@ -157,7 +162,7 @@ class BurgerWar
 
             let clone = obj.clone("clone");
             clone.isVisible = true;
-            clone.position = new BABYLON.Vector3(0, 3, 0);
+            clone.position = new BABYLON.Vector3(-1, 3, 0);
             clone.physicsImpostor = new BABYLON.PhysicsImpostor(clone, BABYLON.PhysicsImpostor.CylinderImpostor, { mass: 10, friction: 0.5, restitution: 0.3 }, scene);
             this.shadowGenerator.addShadowCaster(clone, true);
             this.clones.push(clone);

@@ -91,8 +91,8 @@ class Pendu
 
     lancer()
     {
+        this.musique = new BABYLON.Sound("musique", "musiques/le pénitencier.mp3", this.scene, null, { loop: true, autoplay: true });
         this.scene.attachControl();
-        
         
         this.nombreDErreurs = 0;
         this.motADecouvrir = this.mots[Math.floor(Math.random() * this.mots.length)];
@@ -122,6 +122,7 @@ class Pendu
     arreter()
     {
         this.scene.detachControl();
+        this.musique.dispose();
     }
 
     getScene()

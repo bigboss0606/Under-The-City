@@ -8,7 +8,7 @@ class Maison
 
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
         this.scene.collisionsEnabled = true;
         this.UI = new MaisonUI();
 
@@ -245,7 +245,7 @@ class Maison
 
     lancer()
     {
-        //this.musique = new BABYLON.Sound("music", "musique/whopper-whopper.mp3", this.scene, null, { loop: true, autoplay: true });
+        this.musique = new BABYLON.Sound("musique", "musiques/I Hate U All - Pleasantries.mp3", this.scene, null, { loop: true, autoplay: true });
         this.scene.attachControl();
         this.enCours = true;
     }   
@@ -253,7 +253,7 @@ class Maison
     arreter()
     {
         this.enCours = false;
-        //this.musique.dispose();
+        this.musique.dispose();
         this.scene.detachControl();
     }
 

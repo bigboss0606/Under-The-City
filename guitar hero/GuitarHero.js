@@ -234,12 +234,9 @@ class GuitarHero
 
     lancer()
     {
+        this.musique = new BABYLON.Sound("musique", "musiques/Guitar Hero III - Tom Morello.mp3", this.scene, null, { loop: true, autoplay: true });
         this.scene.attachControl();
         
-        
-        //this.musique = new BABYLON.Sound("music", "musique/coniferous-forest.mp3", this.scene, null, { loop: true, autoplay: true });
-        this.scene.attachControl();
-
         for (let note of this.notesCrees)
         {
             note.detruire();
@@ -269,7 +266,7 @@ class GuitarHero
     arreter()
     {
         this.enCours = false;
-        //this.musique.dispose();
+        this.musique.dispose();
         this.scene.detachControl();
     }
 
