@@ -2,6 +2,7 @@ class SpongebobRace
 {
     constructor()
     {
+        this.estPret = false;
         this.enCours = false;
         
         this.scene = new BABYLON.Scene(ENGINE);
@@ -113,6 +114,8 @@ class SpongebobRace
                     }
                 }
             });
+
+            this.estPret = true;
         });
     }
     

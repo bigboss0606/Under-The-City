@@ -2,6 +2,7 @@ class BurgerWar
 {
     constructor()
     {
+        this.estPret = false;
         this.initiate();
     }
 
@@ -63,7 +64,10 @@ class BurgerWar
         });
 
 
-        BABYLON.SceneLoader.ImportMeshAsync("", "models/", "resto.glb", this.scene);
+        BABYLON.SceneLoader.ImportMeshAsync("", "models/", "resto.glb", this.scene)
+        .then(() => {
+            this.estPret = true}
+        );
 
 
         // Create ground collider

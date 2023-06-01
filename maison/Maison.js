@@ -4,12 +4,13 @@ class Maison
     {
         this.planDeTravailActif = null;
         this.miniJeu = "piano";
+        this.estPret = false;
 
 
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.clearColor = new BABYLON.Color3(0, 0.8, 1);
         this.scene.gravity = new BABYLON.Vector3(0, -0.1, 0);
-        this.scene.debugLayer.show();
+        //this.scene.debugLayer.show();
         this.scene.collisionsEnabled = true;
         this.UI = new MaisonUI();
 
@@ -112,29 +113,29 @@ class Maison
             advancedTextureAirJeu.addControl(buttonAirJeu);
 
 
-            let cage = this.scene.getNodeByName("Cage");
-            let mouton1 = this.scene.getNodeByName("Mouton 1");
-            let mouton2 = this.scene.getNodeByName("Mouton 2");
-            let mouton3 = this.scene.getNodeByName("Mouton 3");
-            let mouton4 = this.scene.getNodeByName("Mouton 4");  
+            let potager = this.scene.getNodeByName("Potager");
+            let puit = this.scene.getNodeByName("Puit");
                   
-            let cameraEnclos = new BABYLON.ArcRotateCamera("camera enclos", 0.65, 1.5, 6, new BABYLON.Vector3(-11, 1.5, 11), this.scene);
-            this.planDeTravailEnclos = new Construction([[cage, [false, true, true, true, true, true]], [mouton1, [false, false, true, true, true, true]], [mouton2, [false, false, false, true, true, true]], [mouton3, [false, false, false, false, true, true]], [mouton4, [false, false, false, false, false, true]]], ["Débloquer un enclos pour y\n placer vos animaux", "Mettez y votre premier mouton!\nMaintenant vous aurez beaucoup\n de laines pour faire des vetements", "Il y a beaucoup de place,\n mettez en un autre", "Allez un petit dernier\nComme ça, vous aurez des beaux vêtements", "Fashion Crochet criminels"], 5, cameraEnclos);
+            let cameraPotager = new BABYLON.ArcRotateCamera("camera potager", 0.65, 1.5, 6, new BABYLON.Vector3(-11, 1.5, 11), this.scene);
+            this.planDeTravailPotager = new Construction([[potager, [false, true, true]], [puit, [false, false, true]]], ["be green", "vert"], 5, cameraPotager);
             
-            let ecranEnclos = this.scene.getNodeByName("Ecran enclos");
-            let advancedTextureEnclos = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(ecranEnclos);
-            let buttonEnclos = BABYLON.GUI.Button.CreateSimpleButton("but4", "The night's not over");
-            buttonEnclos.width = 1;
-            buttonEnclos.height = 1;
-            buttonEnclos.color = "white";
-            buttonEnclos.fontSize = 50;
-            buttonEnclos.background = "green";
-            buttonEnclos.onPointerUpObservable.add(() => {
-                this.planDeTravailActif = this.planDeTravailEnclos;
+            let ecranPotager = this.scene.getNodeByName("Ecran potager");
+            let advancedTexturePotager = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(ecranPotager);
+            let buttonPotager = BABYLON.GUI.Button.CreateSimpleButton("but4", "The night's not over");
+            buttonPotager.width = 1;
+            buttonPotager.height = 1;
+            buttonPotager.color = "white";
+            buttonPotager.fontSize = 50;
+            buttonPotager.background = "green";
+            buttonPotager.onPointerUpObservable.add(() => {
+                this.planDeTravailActif = this.planDeTravailPotager;
                 this.miniJeu = "pendu";
                 this.montrerUI();
             });
-            advancedTextureEnclos.addControl(buttonEnclos);
+            advancedTexturePotager.addControl(buttonPotager);
+
+
+            this.estPret = true;
         });
 
 

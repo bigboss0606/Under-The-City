@@ -44,7 +44,15 @@ function aller(dest)
             throw new Error("destination inconnue");
             break;
     }
-    jeuActif.lancer();
+    if (jeuActif.estPret)
+    {
+        jeuActif.lancer();
+    }
+    else
+    {
+        alert("jeu en cours de chargement");
+        jeuActif.lancer();
+    }
 }
 
 

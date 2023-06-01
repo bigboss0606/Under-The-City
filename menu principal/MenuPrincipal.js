@@ -10,6 +10,7 @@ class MenuPrincipal
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.createDefaultCameraOrLight(true, true, true);
         this.createUI();
+        this.estPret = true;
     }
 
 
@@ -59,7 +60,7 @@ class MenuPrincipal
 
 
         let textRemerciements = new BABYLON.GUI.TextBlock();
-        textRemerciements.text = "Un projet du grand rob1\nD'après une idée du magnifique rob1\nDes modèles époustouflants du prodigieux rob1 (sauf le mouton honteusement volé à Fashion Crochet)\nMusique volée au génial Pleasantries (check Youtube c'est un monstre)\nRéalisé par l'incroyable rob1";
+        textRemerciements.text = "Un projet du grand rob1\nD'après une idée du magnifique rob1\nDes modèles époustouflants du prodigieux rob1\nMusique volée au génial Pleasantries (check Youtube c'est un monstre)\nRéalisé par l'incroyable rob1";
         textRemerciements.color = "white";
         textRemerciements.fontSize = 18;
         grid.addControl(textRemerciements, 3, 0);

@@ -2,6 +2,7 @@ class Pendu
 {
     constructor()
     {
+        this.estPret = false;
         this.scene = new BABYLON.Scene(ENGINE);
         this.scene.createDefaultCameraOrLight(true, true, true);
         this.camera = new BABYLON.ArcRotateCamera("camera", 4, 1.268, 40, new BABYLON.Vector3(0, 0, -10), this.scene);
@@ -16,7 +17,7 @@ class Pendu
 
         //this.scene.debugLayer.show();
 
-        this.mots = ["fashion crochet criminels", "je veux pas mourir", "torture", "assassins", "les moutons ont des droits", "satan a creer le crochet", "lets all love shrek", "zigounette"];
+        this.mots = ["be green", "vert"];
         this.alphabet = ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "w", "x", "c", "v", "b", "n"];
         this.enCours = false;
 
@@ -37,7 +38,7 @@ class Pendu
         });
 
 
-        BABYLON.SceneLoader.ImportMeshAsync("", "models/", "bateau.glb", this.scene);
+        BABYLON.SceneLoader.ImportMeshAsync("", "models/", "bateau.glb", this.scene).then(() => {this.estPret = true});
     }
 
 
@@ -88,7 +89,6 @@ class Pendu
         {
             this.nombreDErreurs++;
 
-            this.UI.montrerImage(this.nombreDErreurs);
             this.UI.texteErreurs.text = 10 - this.nombreDErreurs + " vies restantes";
 
             if (this.nombreDErreurs == 10)
@@ -104,7 +104,7 @@ class Pendu
 
     lancer()
     {
-        this.musique = new BABYLON.Sound("musique", "musiques/le pénitencier.mp3", this.scene, null, { loop: true, autoplay: true });
+        //this.musique = new BABYLON.Sound("musique", "musiques/le pénitencier.mp3", this.scene, null, { loop: true, autoplay: true });
         this.scene.attachControl();
         
         this.nombreDErreurs = 0;
@@ -127,7 +127,6 @@ class Pendu
         this.UI.cacherBoutonPerdu();
         this.UI.texte.text = this.morceauxDecouverts.join("");
         this.UI.texteErreurs.text = "10 vie restantes";
-        this.UI.montrerImage(0);
 
         this.enCours = true;
     }
@@ -135,7 +134,7 @@ class Pendu
     arreter()
     {
         this.scene.detachControl();
-        this.musique.dispose();
+        //this.musique.dispose();
     }
 
     getScene()

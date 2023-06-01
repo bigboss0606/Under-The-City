@@ -18,9 +18,9 @@ class PenduUI
     {
         this.grid = new BABYLON.GUI.Grid();
         this.grid.addColumnDefinition(0.05);
-        this.grid.addColumnDefinition(0.2);
-        this.grid.addColumnDefinition(0.35);
-        this.grid.addColumnDefinition(0.35);
+        this.grid.addColumnDefinition(0.3);
+        this.grid.addColumnDefinition(0.15);
+        this.grid.addColumnDefinition(0.45);
         this.grid.addColumnDefinition(0.05);
         this.grid.addRowDefinition(1);
         this.advancedTexture.addControl(this.grid);
@@ -29,33 +29,12 @@ class PenduUI
         let gauche = new BABYLON.GUI.StackPanel();
         this.grid.addControl(gauche, 0, 1);
 
-        let imagesPanel = new BABYLON.GUI.StackPanel();
-        imagesPanel.height = "400px";
-        imagesPanel.isVertical = false;
-        gauche.addControl(imagesPanel);
-
-        this.images = [];
-        for(let lettre of ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"])
-        {
-            let image = new BABYLON.GUI.Image("image", "pendu/images moutons/mouton " + lettre + ".jpg");
-            image.isVisible = false;
-            image.stretch = BABYLON.GUI.Image.STRETCH_UNIFORM;
-            imagesPanel.addControl(image);
-            this.images.push(image);
-        }
-
-
         this.texteErreurs = new BABYLON.GUI.TextBlock();
-        this.texteErreurs.height = "80px";
+        this.texteErreurs.height = "200px";
         this.texteErreurs.text = "10";
         this.texteErreurs.color = "white";
         this.texteErreurs.fontSize = 30;
         gauche.addControl(this.texteErreurs);
-
-
-
-        let milieu = new BABYLON.GUI.StackPanel();
-        this.grid.addControl(milieu, 0, 2);
 
     
         this.texte = new BABYLON.GUI.TextBlock();
@@ -63,7 +42,7 @@ class PenduUI
         this.texte.text = "----------";
         this.texte.color = "white";
         this.texte.fontSize = 40;
-        milieu.addControl(this.texte);
+        gauche.addControl(this.texte);
 
 
 
@@ -128,15 +107,6 @@ class PenduUI
         }
     }
 
-    montrerImage(numero)
-    {
-        for(let image of this.images)
-        {
-            image.isVisible = false;
-        }
-        this.images[numero].isVisible = true;
-    }
-
 
     createOptions()
     {
@@ -187,7 +157,7 @@ class PenduUI
         
         let textAide = new BABYLON.GUI.TextBlock();
         textAide.height = "350px";
-        textAide.text = "Bienvenue dans Pendu\n\nDans ce mini jeu, vous devrez faire un pendu comme d'hab!\n\nVous pouvez utiliser les boutons ou le clavier";
+        textAide.text = "Pendu\n\nVous pouvez utiliser les boutons ou le clavier";
         textAide.color = "white";
         textAide.fontSize = 25;
         this.panneauAide.addControl(textAide, 0, 0);  
